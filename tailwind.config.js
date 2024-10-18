@@ -17,5 +17,18 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.text-stroke': {
+          '-webkit-text-stroke': '2px white',
+          color: 'black',
+        },
+        '.text-shadow-white': {
+          'text-shadow': '-1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white',
+        },
+      };
+      addUtilities(newUtilities);
+    }
+  ],
 };
