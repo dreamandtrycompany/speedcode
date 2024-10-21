@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -31,14 +32,14 @@ export default function Home() {
           >
             Sign Up
           </a>
-          <a
+          <Link
             className="rounded-full font-bold text-white border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center bg-[#C23E3E] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="./getpro"
             target="_blank"
             rel="noopener noreferrer"
           >
             Get Pro
-          </a>
+          </Link>
         </div>
       </main>
       
