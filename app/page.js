@@ -1,5 +1,6 @@
 'use client';
 
+import Navbar from './(components)/Navbar';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -12,23 +13,7 @@ export default function Home() {
 
   return (
     <>
-      <nav className="flex justify-between py-5 fixed top-0 left-0 w-full">
-        <span className="font-extrabold px-5 text-xl font-sans">SC</span>
-        <ul className="flex gap-12 justify-center items-center font-bold font-sans px-5">
-          <li>
-            <Link href={'/'}>FAQs</Link>
-          </li>
-          <li>
-            <Link href={'/'}>Contact</Link>
-          </li>
-          <li>
-            <button className="border-2 border-white rounded-3xl px-5 py-2">
-              Login
-            </button>
-          </li>
-        </ul>
-      </nav>
-
+      <Navbar/>
       <section className="h-screen">
         <div className="flex justify-center items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-sans">
           <main className="flex flex-col gap-8 items-center">
@@ -119,7 +104,6 @@ export default function Home() {
               <li className="my-8">❌</li>
             </ul>
           </div>
-
           <div className="text-white flex items-center justify-center p-4 row-span-5">
             <ul style={{ listStyle: 'none' }}>
               <li className="mb-8">✅</li>
@@ -131,7 +115,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="">
+      <section>
         <pre className="font-sans font-extrabold text-white text-opacity-30 text-6xl p-5 rounded-lg overflow-x-hidden">
           <code>
             {`
