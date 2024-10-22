@@ -11,14 +11,14 @@ function Navbar(){
         </Link>
         <ul className="flex gap-12 justify-center items-center font-bold font-sans px-5">
           <li>
-            <Link href={'/'}>FAQs</Link>
+            <Link href={'/faqs'}>FAQs</Link>
           </li>
           <li>
-            <Link href={'/'}>Contact</Link>
+            <Link href={'/contact'}>Contact</Link>
           </li>
           <li>
             <Link href="/login">
-            <button className="border-2 border-white rounded-3xl px-5 py-2">
+            <button className="border-2 border-white rounded-3xl px-5 py-2 hover:bg-[#29b960] hover:border-[#29b960] transition-all duration-300">
               Login
             </button>
             </Link>
