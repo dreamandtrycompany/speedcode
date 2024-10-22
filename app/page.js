@@ -1,5 +1,5 @@
 'use client';
-
+import Navbar from './(components)/Navbar';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -8,25 +8,7 @@ import { useState } from 'react';
 export default function Home() {
   return (
     <>
-    <nav className="flex justify-between py-5 fixed top-0 left-0 w-full">
-        <span className="font-extrabold px-5 text-xl font-sans">SC</span>
-        <ul className="flex gap-12 justify-center items-center font-bold font-sans px-5">
-          <li>
-            <Link href={'/'}>FAQs</Link>
-          </li>
-          <li>
-            <Link href={'/'}>Contact</Link>
-          </li>
-          <li>
-            <Link href="/login">
-            <button className="border-2 border-white rounded-3xl px-5 py-2">
-              Login
-            </button>
-            </Link>
-          </li>
-        </ul>
-      </nav>
-
+    <Navbar/>
     <section className = "h-screen">
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center">
