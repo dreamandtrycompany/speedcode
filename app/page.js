@@ -1,22 +1,31 @@
-import Image from "next/image";
-import Link from "next/link";
+'use client';
+
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
+
 
 export default function Home() {
   return (
     <>
     <nav className="flex justify-between py-5 fixed top-0 left-0 w-full">
-      <span className="font-extrabold px-5 text-xl font-sans">
-        SC
-      </span>
-      <ul className="flex gap-12 justify-center items-center px-5">
-        <li className="font-bold font-sans">FAQs</li>
-        <li className="font-bold font-sans">Contact</li>
-        <Link href="/login"><li className="font-bold font-sans"><button className="border-2 border-white rounded-3xl px-5 py-2">
-          Login
-          </button></li>
-        </Link>
-      </ul>
-    </nav>
+        <span className="font-extrabold px-5 text-xl font-sans">SC</span>
+        <ul className="flex gap-12 justify-center items-center font-bold font-sans px-5">
+          <li>
+            <Link href={'/'}>FAQs</Link>
+          </li>
+          <li>
+            <Link href={'/'}>Contact</Link>
+          </li>
+          <li>
+            <Link href="/login">
+            <button className="border-2 border-white rounded-3xl px-5 py-2">
+              Login
+            </button>
+            </Link>
+          </li>
+        </ul>
+      </nav>
 
     <section className = "h-screen">
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
@@ -53,7 +62,7 @@ export default function Home() {
     </section>
 
 
-    <section className="" >
+    <section>
       <pre className="font-sans font-extrabold text-white text-opacity-30 text-6xl p-5 rounded-lg overflow-x-hidden">
 <code>{`
 def pascals_triangle(n):
