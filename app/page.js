@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -10,9 +11,10 @@ export default function Home() {
       <ul className="flex gap-12 justify-center items-center px-5">
         <li className="font-bold font-sans">FAQs</li>
         <li className="font-bold font-sans">Contact</li>
-        <li className="font-bold font-sans"><button className="border-2 border-white rounded-3xl px-5 py-2">
+        <Link href="/login"><li className="font-bold font-sans"><button className="border-2 border-white rounded-3xl px-5 py-2">
           Login
           </button></li>
+        </Link>
       </ul>
     </nav>
 
