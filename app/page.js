@@ -16,8 +16,9 @@ import FourthSection from './(components)/FourthSection';
 export default function Home() {
   // code to give scrollTrigger to each section for future animation purposes
   useEffect(() => {
-    const sections = gsap.utils.toArray('[data-section]');
 
+    // complete this code piece or discard this animation effect for time being @chandan
+    const sections = gsap.utils.toArray('[data-section]');
     sections.forEach((section) => {
       ScrollTrigger.create({
         trigger: section,
@@ -30,6 +31,34 @@ export default function Home() {
         },
       });
     });
+
+
+    //fading in elements scroll effect 
+    const fadeInElements = gsap.utils.toArray('.fade-in');
+    fadeInElements.forEach((element, index) => {
+      gsap.fromTo(
+        element,
+        {
+          opacity: 0,
+          y: 30,  // to sttart slightly below final position
+          duration: 0.6, 
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: element,
+            start: 'top bottom-=100',
+            toggleActions: 'play none none reverse',
+            // stagger the animations slightly
+            delay: index * 0.2,
+          }
+        }
+      );
+    });
+
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
@@ -37,11 +66,24 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
-      <FirstSection />
-      <SecondSection />
-      <ThirdSection />
-      <FourthSection />
+
+    
+<Navbar />
+
+    <div className = "no-scrollbar">
+
+      <div className="fade-in" data-section>
+          <FirstSection />
+        </div>
+        <div className="fade-in" data-section>
+          <SecondSection />
+        </div>
+        <div className="fade-in" data-section>
+          <ThirdSection />
+        </div>
+        <div className="fade-in" data-section>
+          <FourthSection />
+        </div>
 
       <section>
         <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center font-sans py-10">
@@ -87,10 +129,11 @@ export default function Home() {
               width={16}
               height={16}
             />
-            Go to wearedat.co
+            Go to wearethedat.co
           </a>
         </footer>
       </section>
+      </div>
     </>
   );
 }

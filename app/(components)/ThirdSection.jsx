@@ -11,7 +11,7 @@ const ThirdSection = () => {
     <section data-section="three" className="font-sans flex justify-center items-center h-screen relative">
       {/* Animated background div */}
       <div
-        className={`absolute rounded-6xl top-[28vh] left-1/3.5 w-[25vh] h-[40vh] bg-[#131313] transition-transform duration-500 ease-in-out ${
+        className={`absolute rounded-5xl top-[28vh] left-1/3.5 w-[25vh] h-[40vh] bg-[#131313] transition-transform duration-500 ease-in-out ${
           hovered === 'free'
             ? 'transform translate-x-0'
             : hovered === 'pro'
