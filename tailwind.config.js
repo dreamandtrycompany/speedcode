@@ -7,10 +7,13 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        'xs': '480px',
+      },
       fontFamily: {
         sans: ['var(--font-geist-sans)', 'sans-serif'],
         mono: ['var(--font-geist-mono)', 'monospace']
-    },
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
@@ -32,6 +35,13 @@ module.exports = {
         },
         '.text-shadow-white': {
           'text-shadow': '-1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white',
+        },
+        '.no-scrollbar::-webkit-scrollbar': {
+          display: 'none',
+        },
+        '.no-scrollbar': {
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
         },
       };
       addUtilities(newUtilities);
