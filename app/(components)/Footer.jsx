@@ -36,7 +36,7 @@ const Footer = () => {
           </a>
           <a
             className="flex items-center gap-2 hover:underline hover:underline-offset-4 hover:text-[#C23E3E]"
-            href={'/'}
+            href={'/cookies-policy'}
             target="_blank"
             rel="noopener noreferrer"
           >
