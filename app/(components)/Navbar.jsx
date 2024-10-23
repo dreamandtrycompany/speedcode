@@ -14,7 +14,7 @@ function Navbar(){
             <Link href={'/faqs'}>FAQs</Link>
           </li>
           <li>
-            <Link href={'/contact'}>Contact</Link>
+            <Link href={'/fonts/contact'}>Contact</Link>
           </li>
           <li>
             <Link href="/login">
