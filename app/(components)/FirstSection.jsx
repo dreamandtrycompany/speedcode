@@ -23,11 +23,11 @@ const FirstSection = () => {
                          flex items-center justify-center text-background gap-2 bg-[#29b960] 
                          text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto sm:min-w-[160px] 
                          hover:bg-black hover:border-white transition-all duration-300"
-              href={'/signup'}
+              href={'/login'}
               target="_blank"
               rel="noopener noreferrer"
             >
-              Sign Up
+              Log In
             </Link>
 
             {/* Get Pro Button */}
@@ -36,11 +36,11 @@ const FirstSection = () => {
                          flex items-center justify-center bg-[#C23E3E] 
                          text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto sm:min-w-[160px] 
                          hover:bg-black hover:border-white transition-all duration-300"
-              href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+              href={"/signup"}
               target="_blank"
               rel="noopener noreferrer"
             >
-              Get Pro
+              Sign Up
             </Link>
           </div>
 

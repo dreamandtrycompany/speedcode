@@ -7,6 +7,14 @@ module.exports = {
   ],
   theme: {
     extend: {
+      textSelection: {
+        DEFAULT: {
+          'selection': {
+            backgroundColor: '#ffffff',
+            color: '#000000',
+          },
+        },
+      },
       screens: {
         'xs': '480px',
       },
@@ -27,6 +35,19 @@ module.exports = {
     },
   },
   plugins: [
+    function({ addUtilities, theme }) {
+      const selectionUtilities = {
+        '::selection': {
+          backgroundColor: theme('textSelection.DEFAULT.selection.backgroundColor', '#ffffff'),
+          color: theme('textSelection.DEFAULT.selection.color', '#000000'),
+        },
+        '::-moz-selection': {
+          backgroundColor: theme('textSelection.DEFAULT.selection.backgroundColor', '#ffffff'),
+          color: theme('textSelection.DEFAULT.selection.color', '#000000'),
+        },
+      };
+      addUtilities(selectionUtilities);
+    },
     function ({ addUtilities }) {
       const newUtilities = {
         '.text-stroke': {

@@ -11,8 +11,8 @@ const SecondSection = () => {
           <p className="font-sans font-extrabold
             text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem]
             tracking-tight leading-none">
-            <span className="text-shadow-white text-black inline-block">For</span>
-            <span className="inline-block">&nbsp;coders,</span>
+            <span className="text-shadow-white text-black inline-block">Code with</span>
+            <span className="inline-block">&nbsp;purpose,</span>
           </p>
         </div>
 
@@ -21,8 +21,8 @@ const SecondSection = () => {
           <p className="font-sans font-extrabold
             text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem]
             tracking-tight leading-none">
-            <span className="inline-block">by</span>
-            <span className="text-shadow-white text-black inline-block">&nbsp;coders.</span>
+            <span className="inline-block">Practice</span>
+            <span className="text-shadow-white text-black inline-block">&nbsp;with speed.</span>
           </p>
         </div>
       </div>

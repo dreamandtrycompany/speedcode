@@ -9,7 +9,7 @@ function Navbar() {
       <div className="max-w-7xl mx-auto flex justify-between items-center py-5 px-4">
         {/* Logo */}
         <Link href={'/'} className="hover:opacity-80 transition-opacity">
-          <span className="font-extrabold text-xl font-sans">SC</span>
+          <span className="text-2xl font-sans"><span className = "text-[#29b960] font-extrabold">Speed</span><span className = "text-[#C23E3E] font-extrabold">Code</span></span>
         </Link>
         
         {/* Navigation Links */}
@@ -24,16 +24,16 @@ function Navbar() {
           </li>
           <li>
             <Link 
-              href={'/contact'} 
+              href={'/about'} 
               className="hover:text-[#29b960] transition-colors"
             >
-              Contact
+              About
             </Link>
           </li>
           <li>
-            <Link href="/login">
-              <button className="border-2 border-white rounded-3xl px-5 py-2 hover:bg-[#29b960] hover:border-[#29b960] transition-all duration-300">
-                Login
+            <Link href={"/getpro"}>
+              <button className="border-2 border-white rounded-3xl px-5 py-2 hover:bg-[#313131] hover:border-[#313131] transition-all duration-300">
+                Get Pro
               </button>
             </Link>
           </li>
