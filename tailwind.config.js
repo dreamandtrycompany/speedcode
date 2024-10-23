@@ -14,10 +14,13 @@ module.exports = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        red: {
-          600: '#dc2626', // Default Tailwind red-600
-        },
       },
+      borderRadius: {
+        '4xl': '2rem',
+        '5xl': '3rem',
+        '6xl': '4rem',
+        '7xl': '5rem',
+      }
       borderRadius: {
         'full': '9999px',
       }
