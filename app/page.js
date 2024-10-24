@@ -12,6 +12,7 @@ import FirstSection from './(components)/FirstSection';
 import SecondSection from './(components)/SecondSection';
 import ThirdSection from './(components)/ThirdSection';
 import FourthSection from './(components)/FourthSection';
+import Footer from './(components)/footer';
 
 export default function Home() {
   // code to give scrollTrigger to each section for future animation purposes
@@ -41,12 +42,12 @@ export default function Home() {
         {
           opacity: 0,
           y: 30,  // to sttart slightly below final position
-          duration: 0.6, 
+          duration: 1, 
         },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
+          duration: 1,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: element,
@@ -85,54 +86,8 @@ export default function Home() {
           <FourthSection />
         </div>
 
-      <section>
-        <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center font-sans py-10">
-          <a
-            className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-            href={'/about'}
-            rel="noopener noreferrer"
-          >
-            <Image
-              aria-hidden
-              src="https://nextjs.org/icons/file.svg"
-              alt="File icon"
-              width={16}
-              height={16}
-            />
-            What is SpeedCode?
-          </a>
-          <a
-            className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-            href={'/'}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              aria-hidden
-              src="https://nextjs.org/icons/window.svg"
-              alt="Window icon"
-              width={16}
-              height={16}
-            />
-            About DATCO.
-          </a>
-          <a
-            className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-            href={'/'}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              aria-hidden
-              src="https://nextjs.org/icons/globe.svg"
-              alt="Globe icon"
-              width={16}
-              height={16}
-            />
-            Go to wearethedat.co
-          </a>
-        </footer>
-      </section>
+        <Footer />
+
       </div>
     </>
   );

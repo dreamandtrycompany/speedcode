@@ -23,7 +23,7 @@ const FourthSection = () => {
                      rounded-lg overflow-x-auto
                      whitespace-pre-wrap break-words
                      transition-all duration-300
-                     bg-black/10 backdrop-blur-sm"
+                     bg-background backdrop-blur-sm"
         >
           <code className="block font-mono">
             {codeString}
