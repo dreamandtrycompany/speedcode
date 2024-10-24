@@ -17,7 +17,7 @@ function Navbar() {
           <li>
             <Link 
               href={'/faqs'} 
-              className="hover:text-[#29b960] transition-colors"
+              className="hover:text-[#313131] transition-colors"
             >
               FAQs
             </Link>
@@ -25,7 +25,7 @@ function Navbar() {
           <li>
             <Link 
               href={'/about'} 
-              className="hover:text-[#29b960] transition-colors"
+              className="hover:text-[#313131] transition-colors"
             >
               About
             </Link>
