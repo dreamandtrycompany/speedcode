@@ -8,7 +8,7 @@ const Footer = () => {
         <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center font-sans py-10">
           <Link
             className="flex items-center gap-2 hover:underline hover:underline-offset-4 hover:text-[#C23E3E]"
-            href={'/about'}
+            href={'/about-datco'}
             rel="noopener noreferrer"
           >
             <Image
