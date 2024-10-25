@@ -2,23 +2,22 @@
 import React from 'react';
 
 const FourthSection = () => {
-  const codeString = `def pascals_triangle(n):
-    triangle = [[1]]
-    for i in range(1, n):
-        row = [1]
-        for j in range(1, i):
-            row.append(triangle[i-1][j-1] 
-            + triangle[i-1][j])
-        row.append(1)
-        triangle.append(row)
-    return triangle`;
+  const codeString = `head = Node(PRO)
+#Tell they reached the end
+head.next = Node(YOU)
+head.next.next = Node(REACHED)
+head.next.next.next = Node(THE)
+head.next.next.next.next = Node(END)
+head.next.next.next.next.next = Node(HAHA)
+#Prompt to make them buy
+print(getNow(BUY PRO))`;
 
   return (
     <section data-section="four" className="h-screen w-full flex items-center p-4 sm:p-6 md:p-8 lg:p-12">
       <div className="w-full">
         <pre 
           className="font-sans font-extrabold text-white text-opacity-30 
-                     text-sm sm:text-lg md:text-2xl lg:text-4xl xl:text-6xl 
+                     text-sm sm:text-2xl md:text-2xl lg:text-4xl xl:text-6xl 
                      p-4 sm:p-5 md:p-6 lg:p-8 
                      rounded-lg overflow-x-auto
                      whitespace-pre-wrap break-words
