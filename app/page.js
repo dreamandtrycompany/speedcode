@@ -12,7 +12,7 @@ import FirstSection from './(components)/FirstSection';
 import SecondSection from './(components)/SecondSection';
 import ThirdSection from './(components)/ThirdSection';
 import FourthSection from './(components)/FourthSection';
-import Footer from './(components)/footer';
+import Footer from './(components)/Footer';
 
 export default function Home() {
   // code to give scrollTrigger to each section for future animation purposes

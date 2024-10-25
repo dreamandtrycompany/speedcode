@@ -1,11 +1,12 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const Footer = () => {
   return (
     <section>
         <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center font-sans py-10">
-          <a
+          <Link
             className="flex items-center gap-2 hover:underline hover:underline-offset-4 hover:text-[#C23E3E]"
             href={'/about'}
             rel="noopener noreferrer"
@@ -18,11 +19,10 @@ const Footer = () => {
               height={16}
             />
             About DATCO.
-          </a>
-          <a
+          </Link>
+          <Link
             className="flex items-center gap-2 hover:underline hover:underline-offset-4 hover:text-[#C23E3E]"
             href={'/contact'}
-            target="_blank"
             rel="noopener noreferrer"
           >
             <Image
@@ -33,11 +33,10 @@ const Footer = () => {
               height={16}
             />
             Contact Us
-          </a>
-          <a
+          </Link>
+          <Link
             className="flex items-center gap-2 hover:underline hover:underline-offset-4 hover:text-[#C23E3E]"
             href={'/cookies-policy'}
-            target="_blank"
             rel="noopener noreferrer"
           >
             <Image
@@ -48,10 +47,10 @@ const Footer = () => {
               height={16}
             />
             Cookies Policy
-          </a>
+          </Link>
         </footer>
       </section>
   )
 }
 
-export default Footer
+export default Footer;
