@@ -24,7 +24,6 @@ const FirstSection = () => {
                          text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto sm:min-w-[160px] 
                          hover:bg-black hover:border-white transition-all duration-300"
               href={'/login'}
-              target="_blank"
               rel="noopener noreferrer"
             >
               Log In
@@ -37,7 +36,6 @@ const FirstSection = () => {
                          text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto sm:min-w-[160px] 
                          hover:bg-black hover:border-white transition-all duration-300"
               href={"/signup"}
-              target="_blank"
               rel="noopener noreferrer"
             >
               Sign Up

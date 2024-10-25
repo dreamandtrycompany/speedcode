@@ -23,13 +23,13 @@ const ThirdSection = () => {
 
       <div className="grid grid-cols-3 grid-rows-7 gap-4 relative w-[75vh]">
         {/* Headings (Row span 2) */}
-        <div className="flex-col text-3xl text-white flex items-center justify-center p-4 row-span-2">
+        <div className="flex-col text-2xl text-white flex items-center justify-center p-4 row-span-2">
           <span>Comapare</span>Versions
         </div>
 
         {/* SpeedCode Free - Hover triggers background movement */}
         <div
-          className="flex-col text-3xl text-white flex items-center justify-center p-4 row-span-2 relative z-10"
+          className="flex-col text-2xl text-white flex items-center justify-center p-4 row-span-2 relative z-10"
           onMouseEnter={() => handleHover('free')}
         >
           <span>SpeedCode</span>Free
@@ -37,7 +37,7 @@ const ThirdSection = () => {
 
         {/* SpeedCode Pro - Hover triggers background movement */}
         <div
-          className="flex-col text-3xl text-white flex items-center justify-center p-4 row-span-2 relative z-10"
+          className="flex-col text-2xl text-white flex items-center justify-center p-4 row-span-2 relative z-10"
           onMouseEnter={() => handleHover('pro')}
         >
           <span>SpeedCode</span>Pro
