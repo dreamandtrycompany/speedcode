@@ -22,7 +22,7 @@ const FirstSection = () => {
               className="rounded-full font-bold text-white border-2 border-solid border-transparent 
                          flex items-center justify-center text-background gap-2 bg-[#29b960] 
                          text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto sm:min-w-[160px] 
-                         hover:bg-black hover:border-white transition-all duration-300"
+                         hover:bg-[#134d29] hover:border-[#134d29]transition-all duration-300"
               href={'/login'}
               rel="noopener noreferrer"
             >
@@ -34,7 +34,7 @@ const FirstSection = () => {
               className="rounded-full font-bold text-white border-2 border-solid border-transparent 
                          flex items-center justify-center bg-[#C23E3E] 
                          text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto sm:min-w-[160px] 
-                         hover:bg-black hover:border-white transition-all duration-300"
+                         hover:bg-[#812323] hover:border-[##812323] transition-all duration-300"
               href={"/signup"}
               rel="noopener noreferrer"
             >

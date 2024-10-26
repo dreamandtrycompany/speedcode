@@ -32,7 +32,7 @@ const Page = () => {
               </div>
               <div className='text-center lg:text-left text-base sm:text-lg lg:text-xl opacity-80'>
                 If you have any questions about your account, billing, or
-                <span className='inline lg:block'> anything else speedcode related, we're here to help!</span>
+                <span className='inline lg:block'> anything else speedcode related, we&apos;re here to help!</span>
               </div>
             </div>
 
