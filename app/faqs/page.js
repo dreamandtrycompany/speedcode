@@ -15,11 +15,11 @@ const Page = () => {
   };
 
   const faqItems = [
-    { id: 1, question: 'What is SpeedCode?', answer: 'This is SpeedCode.' },
-    { id: 2, question: 'What is SpeedCode?', answer: 'This is SpeedCode.' },
-    { id: 3, question: 'What is SpeedCode?', answer: 'This is SpeedCode.' },
-    { id: 4, question: 'What is SpeedCode?', answer: 'This is SpeedCode.' },
-    { id: 5, question: 'What is SpeedCode?', answer: 'This is SpeedCode.' },
+    { id: 1, question: 'Does SpeedCode have a pro subscription?', answer: 'Yes, SpeedCode does have a minimal fee pro version.' },
+    { id: 2, question: 'Is SpeedCode completely free?', answer: 'Yes SpeedCode does have a completely free version where you can practice coding and typing without paying any fee to anyone.' },
+    { id: 3, question: 'When is the battle feature rolling out?', answer: 'SpeedCode is working on this feature actively and will be letting users know through an official announcement.' },
+    { id: 4, question: 'What languages does SpeedCode offer?', answer: 'SpeedCode features Python, Java, C++ as the coding languages as of now, more languages are actively being worked upon.' },
+    { id: 5, question: 'Can we track our codes practice progress?', answer: 'Progress tracking is only a feature for the pro version, however you can elevate your coding practice with the free version as well !' },
   ];
 
   return (
