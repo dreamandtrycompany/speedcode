@@ -13,7 +13,7 @@ print(getNow(BUY PRO))`;
   return (
     <section
       data-section="four"
-      className="min-h-screen w-full flex items-center justify-center p-3 sm:p-6 md:p-8 lg:p-12 bg-gradient-to-b from-transparent to-black/20"
+      className="min-h-screen w-full flex items-center justify-center p-3 sm:p-6 md:p-8 lg:p-12 bg-gradient-to-b to-background"
     >
       <div className="w-full max-w-[95vw] md:max-w-[85vw] lg:max-w-[80vw]">
         <div className="relative">
@@ -21,7 +21,7 @@ print(getNow(BUY PRO))`;
           <div className="font-sans absolute -top-6 left-4 text-green-500 opacity-60 text-sm sm:text-base">
             get_pro.py
           </div>
-          <div className="absolute -top-4 right-4 text-white/30 text-xs sm:text-sm">
+          <div className="absolute -top-6 right-6 text-white/30 text-xs sm:text-sm">
             <span className="mr-3">●</span>
             <span className="mr-3">●</span>
             <span>●</span>
@@ -34,7 +34,7 @@ print(getNow(BUY PRO))`;
                        p-6 sm:p-8 md:p-10 lg:p-12
                        rounded-xl
                        overflow-x-auto
-                       bg-black/40 backdrop-blur-md
+                       bg-black backdrop-blur-md
                        transition-all duration-300
                        shadow-2xl
                        border border-white/10
