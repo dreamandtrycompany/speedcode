@@ -13,7 +13,7 @@ function Navbar() {
         </Link>
         
         {/* Navigation Links */}
-        <ul className="flex items-center gap-12 font-bold font-sans">
+        <ul className="flex items-center gap-4 sm:gap-12 font-bold font-sans">
           <li>
             <Link 
               href={'/faqs'} 
