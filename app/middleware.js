@@ -1,21 +1,12 @@
-import { authMiddleware } from "@clerk/nextjs";
- 
-export default authMiddleware({
-  // Add any public routes that don't require authentication
-  publicRoutes: [
-    '/',
-    '/api/webhook',
-    '/sign-in',
-    '/sign-up',
-  ],
-  
-  // Add any routes that should be ignored by Clerk
-  ignoredRoutes: [
-    '/_next',  // Next.js system routes
-    '/api/health',  // Example of an API route to ignore
-  ]
-});
- 
+import { clerkMiddleware } from "@clerk/nextjs/server";
+
+export default clerkMiddleware();
+
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // Always run for API routes
+    '/(api|trpc)(.*)',
+  ],
 };
