@@ -1,4 +1,5 @@
 import localFont from 'next/font/local';
+import { ClerkProvider } from '@clerk/nextjs';
 import './globals.css';
 
 const geistSans = localFont({
@@ -15,7 +16,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} antialiased`}>{children}</body>
+      <body className={`${geistSans.variable} antialiased`}>
+        <ClerkProvider>
+          <div className="min-h-screen flex flex-col">
+            <main className="flex-1">
+              {children}
+            </main>
+          </div>
+        </ClerkProvider>
+      </body>
     </html>
   );
 }
