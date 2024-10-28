@@ -1,9 +1,10 @@
-import Navbar from '../(components)/Navbar';
+import Navbar from '../../(components)/Navbar';
+import { SignIn } from '@clerk/nextjs';
 
 function login() {
   return (
     <>
-      <Navbar />
+      {/* <Navbar />
       <div className="font-sans flex justify-center items-center h-screen">
         <div>
           <p className="text-7xl text-center mb-10">Login</p>
@@ -29,7 +30,11 @@ function login() {
             </button>
           </form>
         </div>
+      </div> */}
+      <div className = "flex justify-center p-24">
+      <SignIn />
       </div>
+      
     </>
   );
 }
