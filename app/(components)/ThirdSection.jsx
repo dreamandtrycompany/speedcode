@@ -22,8 +22,7 @@ const ThirdSection = () => {
 
   return (
     <section
-      data-section="three"
-      className="font-sans min-h-screen w-full flex justify-center items-center p-4 sm:p-6 md:p-8"
+      className="panel font-sans min-h-screen w-full flex justify-center items-center p-4 sm:p-6 md:p-8"
       onMouseLeave={handleMouseLeave}
     >
       <div className="w-full max-w-6xl mx-auto overflow-x-auto">

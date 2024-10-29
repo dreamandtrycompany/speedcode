@@ -11,10 +11,7 @@ head.next.next.next.next.next = Node(HAHA)
 print(getNow(BUY PRO))`;
 
   return (
-    <section
-      data-section="four"
-      className="min-h-screen w-full flex items-center justify-center p-3 sm:p-6 md:p-8 lg:p-12 bg-gradient-to-b to-background"
-    >
+    <section className="panel min-h-screen w-full flex items-center justify-center p-3 sm:p-6 md:p-8 lg:p-12 bg-gradient-to-b to-background">
       <div className="w-full max-w-[95vw] md:max-w-[85vw] lg:max-w-[80vw]">
         <div className="relative">
           {/* Decorative elements */}
