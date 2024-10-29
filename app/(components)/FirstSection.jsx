@@ -5,7 +5,7 @@ import React from 'react';
 
 const FirstSection = () => {
   return (
-    <section data-section="one" className="h-screen w-full">
+    <section className="panel h-screen w-full">
       <div className="flex justify-center items-center min-h-screen p-4 md:p-8 lg:p-20 font-sans">
         <main className="flex flex-col gap-4 md:gap-8 items-center w-full max-w-6xl mx-auto">
           {/* Responsive Title - Adjusted for better mobile scaling */}
