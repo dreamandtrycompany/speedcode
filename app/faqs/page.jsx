@@ -3,14 +3,37 @@
 import { useState } from 'react';
 import Footer from '../(components)/Footer';
 import Navbar from '../(components)/Navbar';
+import { saveFaq } from '../../lib/supabase';
 // import { FaLocationArrow } from 'react-icons/fa';
 // import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const Page = () => {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [faq, setFaq] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleClick = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setSuccessMessage('');
+    setErrorMessage('');
+
+    try {
+      await saveFaq(faq);
+      setSuccessMessage('Your faq has been saved successfully!');
+      setFaq('');
+    } catch (error) {
+      setErrorMessage('There was an error saving your faq. Please try again.');
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const faqItems = [
@@ -104,29 +127,64 @@ const Page = () => {
             <span className="block">for us?</span>
           </h1>
 
-          <form className="flex flex-row items-center justify-center gap-3">
+          <form
+            className="flex flex-row items-center justify-center gap-3"
+            onSubmit={handleSubmit}
+          >
             <input
               type="text"
               placeholder="Leave your question here"
               className="rounded-3xl px-6 text-white py-3 md:py-4 bg-[#313131] flex-1 max-w-[350px]"
+              value={faq}
+              onChange={(e) => setFaq(e.target.value)}
+              required
             />
             <button
               type="submit"
               className="border-2 border-white rounded-3xl w-14 h-12 flex items-center justify-center hover:bg-[#29b960] hover:border-[#29b960] transition-all duration-300"
             >
+              {isSubmitting ? (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 140">
+                  <path
+                    fill="none"
+                    stroke="#FFFFFF"
+                    stroke-width="15"
+                    stroke-linecap="round"
+                    stroke-dasharray="300 385"
+                    stroke-dashoffset="0"
+                    d="M275 75c0 31-27 50-50 50-58 0-92-100-150-100-28 0-50 22-50 50s23 50 50 50c58 0 92-100 150-100 24 0 50 19 50 50Z"
+                  >
+                    <animate
+                      attributeName="stroke-dashoffset"
+                      calcMode="spline"
+                      dur="2"
+                      values="685;-685"
+                      keySplines="0 0 1 1"
+                      repeatCount="indefinite"
+                    ></animate>
+                  </path>
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 -960 960 960"
+                  width="24px"
+                  fill="#e8eaed"
+                >
+                  <path d="M480-440 160-640v400h360v80H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v280h-80v-200L480-440Zm0-80 320-200H160l320 200ZM760-40l-56-56 63-64H600v-80h167l-64-64 57-56 160 160L760-40ZM160-640v440-240 3-283 80Z" />
+                </svg>
+              )}
               {/* <FaLocationArrow className="text-lg" /> */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="24px"
-                viewBox="0 -960 960 960"
-                width="24px"
-                fill="#e8eaed"
-              >
-                <path d="M480-440 160-640v400h360v80H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v280h-80v-200L480-440Zm0-80 320-200H160l320 200ZM760-40l-56-56 63-64H600v-80h167l-64-64 57-56 160 160L760-40ZM160-640v440-240 3-283 80Z" />
-              </svg>
             </button>
           </form>
         </div>
+        {successMessage && (
+          <p className="text-green-500 text-center mt-4">{successMessage}</p>
+        )}
+        {errorMessage && (
+          <p className="text-red-500 text-center mt-4">{errorMessage}</p>
+        )}
       </section>
       <Footer />
     </>
