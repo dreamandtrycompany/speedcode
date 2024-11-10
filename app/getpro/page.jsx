@@ -11,8 +11,8 @@ const page = () => {
       <main className="relative w-full h-screen overflow-hidden">
         <link rel="icon" href="/favicon.ico" />
         <Navbar />
-        
-        <div 
+
+        <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: `url('./final-new.png')`,
@@ -24,11 +24,11 @@ const page = () => {
 
         {/* clickable overlay */}
         <div className="relative z-10 w-full h-full flex items-center justify-center">
-          <Link 
+          <Link
             href="/payment"
             className="relative cursor-pointer w-[120px] sm:w-[120px] md:w-[120px] lg:w-[120px] h-[300px] sm:h-[400px] md:h-[500px] lg:h-[570px]"
           >
-            <div 
+            <div
               className="w-full h-full transition-colors duration-200 rounded-2xl"
               title="Click to proceed"
             />
