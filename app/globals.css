@@ -4,7 +4,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #0A0908;
+  --foreground: #0a0908;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,8 +15,8 @@
 }
 
 * {
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 body {
@@ -37,16 +37,13 @@ body {
 
 /* spacing for the code bit at section 4*/
 .custom-code-spacing {
-  line-height: 1.125; 
+  line-height: 1.125;
   letter-spacing: 0.02em;
 }
 
 @layer utilities {
   .text-shadow-white {
-    text-shadow: 
-      -1px -1px 0 #fff,
-      1px -1px 0 #fff,
-      -1px 1px 0 #fff,
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
       1px 1px 0 #fff;
   }
 }

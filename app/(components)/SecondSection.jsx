@@ -17,7 +17,9 @@ const SecondSection = () => {
               <span>Code&nbsp;</span>
               <span>with</span>
             </span>
-            <span className="inline-block hover:scale-105 hover:-translate-y-2 transition-transform duration-300">&nbsp;purpose,</span>
+            <span className="inline-block hover:scale-105 hover:-translate-y-2 transition-transform duration-300">
+              &nbsp;purpose,
+            </span>
           </p>
         </div>
 
@@ -28,7 +30,9 @@ const SecondSection = () => {
             text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem]
             tracking-tight leading-none"
           >
-            <span className="inline-block hover:scale-105 hover:-translate-y-2 transition-transform duration-300">Practice&nbsp;</span>
+            <span className="inline-block hover:scale-105 hover:-translate-y-2 transition-transform duration-300">
+              Practice&nbsp;
+            </span>
             <span className="flex flex-col text-shadow-white text-black sm:inline-block hover:scale-105 hover:-translate-y-2 transition-transform duration-300">
               <span>with&nbsp;</span>
               <span>Speed</span>

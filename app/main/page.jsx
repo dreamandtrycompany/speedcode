@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import Navbar from '../(components)/Navbar';
-import Footer from '../(components)/Footer';
 //path for routing db
 import { getCodes } from '../../lib/supabase'; 
 import { useRouter } from 'next/navigation';
+import AuthNavbar from '../(components)/AuthNavbar';
 
 const Page = () => {
   const [codes, setCodes] = useState([]);
@@ -53,12 +52,12 @@ const Page = () => {
 
   return (
     <>
-      <Navbar />
+      <AuthNavbar />
       <div className="overflow-y-hidden">
         <div className="justify-center flex items-center mt-[9rem]">
           <div className="font-sans w-[50vw] h-[60vh] bg-[#1f1f1f] p-10 rounded-4xl">
             {loading ? (
-              <p className="text-white">Loading codes...</p>
+              <p className="text-white">Loading Al...</p>
             ) : error ? (
               <p className="text-red-500">Error: {error}</p>
             ) : (
