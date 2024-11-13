@@ -4,7 +4,8 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { getCodeById } from '../../../lib/supabase';
 import NumberFlow from '@number-flow/react';
-import AuthNavbar from '../../(components)/AuthNavbar';
+import NavbarCodeSpace from '../../(components)/NavbarCodeSpace';
+import { BlinkBlur } from 'react-loading-indicators';
 
 const CodeDisplayPage = () => {
   // Extract pathname for getting code ID from URL
@@ -260,7 +261,11 @@ const CodeDisplayPage = () => {
 
   // Loading state
   if (loading) {
-    return <div className="text-white">Loading...</div>;
+    return (
+      <div className="text-white flex justify-center items-center h-screen">
+        <BlinkBlur color="#316c31" size="medium" text="" textColor="" />
+      </div>
+    );
   }
 
   // Error state
@@ -270,7 +275,7 @@ const CodeDisplayPage = () => {
 
   return (
     <>
-      <AuthNavbar />
+      <NavbarCodeSpace />
       <div
         ref={containerRef}
         className="bg-background min-h-screen flex flex-col items-center justify-center p-4 mt-[2rem] focus:outline-none"
