@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { gsap } from 'gsap';
+import { useUser } from '@clerk/clerk-react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -14,6 +15,8 @@ import FourthSection from './(components)/FourthSection';
 import Footer from './(components)/Footer';
 
 export default function Home() {
+  const { isSignedIn, user } = useUser();
+
   useEffect(() => {
     // Fading in elements on scroll
     const fadeInElements = gsap.utils.toArray('.panel');
@@ -48,7 +51,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <FirstSection />
+      <FirstSection isSignedIn={isSignedIn} user={user} />
       <SecondSection />
       <ThirdSection />
       <FourthSection />
