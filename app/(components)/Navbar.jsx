@@ -30,7 +30,7 @@ function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-background backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto flex justify-between items-center py-5 px-4">
+      <div className="max-w-7xl mx-auto flex justify-evenly md:justify-between items-center py-5 px-4">
         {/* Logo */}
         <Link href={'/'} className="hover:opacity-80 transition-opacity">
           <span className="text-2xl font-sans">
