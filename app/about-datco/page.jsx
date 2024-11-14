@@ -20,11 +20,9 @@ const page = () => {
               tech group founded by four friends in college. United by a shared
               passion for innovation and problem-solving, this team isn't just
               about completing projects—it's about creating, learning, and
-              having fun along the way. With the collaborative efforts of V.
-              Ranadheer, Nikhil John Shaji, Chandan Swarit, and Y. Chaitanya,
+              having fun along the way. With the collaborative efforts,
               DATCO emerged from their collective desire to transform bold ideas
-              into real-world applications that everyone can enjoy and learn
-              from.
+              into real-world applications that everyone can have fun building and learning.
             </p>
           </section>
 

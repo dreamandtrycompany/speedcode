@@ -74,8 +74,8 @@ const Page = () => {
       <section className="font-sans mb-8 md:mb-12 lg:mb-20 px-4 md:px-6 lg:px-8 pt-24">
         {/* FAQ Section */}
         <div className="w-full max-w-3xl mx-auto min-h-[50vh]">
-          <h1 className="text-center text-4xl md:text-5xl lg:text-7xl py-3 md:py-4 lg:py-5 mb-6 md:mb-8 lg:mb-10">
-            FAQs
+          <h1 className="font-sans font-bold text-center text-4xl md:text-5xl lg:text-7xl py-3 md:py-4 lg:py-5 mb-6 md:mb-8 lg:mb-10">
+            Frequently Asked Questions
           </h1>
 
           {faqItems.map((item) => (
@@ -112,7 +112,7 @@ const Page = () => {
                   activeIndex === item.id ? 'max-h-40' : 'max-h-0'
                 }`}
               >
-                <div className="text-base md:text-lg py-2 pl-3">
+                <div className="font-mono text-base md:text-lg py-2 pl-3">
                   <p>{item.answer}</p>
                 </div>
               </div>
@@ -122,7 +122,7 @@ const Page = () => {
 
         {/* Question Form Section */}
         <div className="w-full max-w-3xl mx-auto px-4 mt-8 md:mt-12 lg:mt-16">
-          <h1 className="text-center text-3xl md:text-5xl lg:text-7xl py-3 md:py-4 lg:py-5 mb-6 md:mb-8 lg:mb-10">
+          <h1 className="font-sans font-bold text-center text-3xl md:text-5xl lg:text-7xl py-3 md:py-4 lg:py-5 mb-6 md:mb-8 lg:mb-10">
             <span>Have any more questions</span>
             <span className="block">for us?</span>
           </h1>
