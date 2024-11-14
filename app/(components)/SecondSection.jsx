@@ -10,7 +10,7 @@ const SecondSection = () => {
         <div className="text-left whitespace-nowrap mb-2 sm:mb-4 md:mb-6">
           <p
             className="font-sans font-extrabold
-            text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem]
+            text-6xl lg:text-7xl xl:text-8xl 2xl:text-[10rem]
             tracking-tight leading-none"
           >
             <span className="flex flex-col text-shadow-white text-black sm:inline-block hover:scale-105 hover:-translate-y-2 transition-transform duration-300">

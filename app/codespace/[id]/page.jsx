@@ -309,11 +309,16 @@ const CodeDisplayPage = () => {
           >
             <pre className="mb-10 mt-10 p-2 bg-background rounded-lg">
               <code className="leading-10 text-3xl font-mono whitespace-pre-wrap">
-                {(code?.[0]?.code || '').split('').map((char, charIndex) => (
-                  <span key={charIndex} className={getCharClass(charIndex)}>
+                {(code?.[0]?.code || '').split('').map((char, charIndex) => {
+                  if (char === '=' && (code?.[0]?.code || '')[charIndex + 1] === '=') {
+                    return <span key={charIndex} className={getCharClass(charIndex)}>
+                      {'=='}
+                    </span>;
+                  }
+                  return <span key={charIndex} className={getCharClass(charIndex)}>
                     {char}
-                  </span>
-                ))}
+                  </span>;
+                })}
               </code>
             </pre>
           </div>

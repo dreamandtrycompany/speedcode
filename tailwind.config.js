@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'neon-white': '0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.5), 0 0 45px rgba(255, 255, 255, 0.4), 0 0 60px rgba(255, 255, 255, 0.3)',
+      },
       textSelection: {
         DEFAULT: {
           'selection': {
