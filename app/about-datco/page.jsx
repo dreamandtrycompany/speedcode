@@ -20,9 +20,10 @@ const page = () => {
               tech group founded by four friends in college. United by a shared
               passion for innovation and problem-solving, this team isn't just
               about completing projects—it's about creating, learning, and
-              having fun along the way. With the collaborative efforts,
-              DATCO emerged from their collective desire to transform bold ideas
-              into real-world applications that everyone can have fun building and learning.
+              having fun along the way. With the collaborative efforts, DATCO
+              emerged from their collective desire to transform bold ideas into
+              real-world applications that everyone can have fun building and
+              learning.
             </p>
           </section>
 

@@ -8,36 +8,25 @@ import NavbarCodeSpace from '../../(components)/NavbarCodeSpace';
 import { BlinkBlur } from 'react-loading-indicators';
 
 const CodeDisplayPage = () => {
-  // Extract pathname for getting code ID from URL
   const pathname = usePathname();
-
-  // State for managing code content and loading states
   const [code, setCode] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  // State for managing typing progress
   const [currentSnippetIndex, setCurrentSnippetIndex] = useState(0);
   const [inputs, setInputs] = useState(Array(1).fill(''));
   const [currentIndices, setCurrentIndices] = useState(Array(1).fill(0));
-
-  // Timer and performance tracking states
   const [timeLeft, setTimeLeft] = useState(60);
   const [isActive, setIsActive] = useState(false);
   const [wpm, setWpm] = useState(0);
+  const [accuracy, setAccuracy] = useState(100);
   const [isCompleted, setIsCompleted] = useState(false);
-
-  // Track typing statistics
   const [snippetScores, setSnippetScores] = useState(
     Array(1).fill({ charactersTyped: 0, errors: 0 })
   );
-
-  // Refs for DOM elements and timing
   const containerRef = useRef(null);
   const startTimeRef = useRef(null);
   const codeContainerRef = useRef(null);
 
-  // Fetch code from database on component mount
   useEffect(() => {
     const fetchCode = async () => {
       try {
@@ -54,7 +43,6 @@ const CodeDisplayPage = () => {
     fetchCode();
   }, [pathname]);
 
-  // Timer countdown effect
   useEffect(() => {
     let timer;
     if (isActive && timeLeft > 0 && !isCompleted) {
@@ -72,14 +60,12 @@ const CodeDisplayPage = () => {
     return () => clearInterval(timer);
   }, [isActive, timeLeft, isCompleted]);
 
-  // Focus container on mount
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.focus();
     }
   }, []);
 
-  // Calculate WPM based on characters typed and errors
   const calculateWPM = useCallback(() => {
     if (!startTimeRef.current) return 0;
 
@@ -97,15 +83,16 @@ const CodeDisplayPage = () => {
       0
     );
 
-    // Standard WPM calculation: (characters / 5) / time
     const grossWPM = totalCharactersTyped / 5 / totalTime;
-    // Subtract penalty for errors
     const netWPM = Math.max(0, grossWPM - totalErrors / totalTime);
+    const accuracy = totalCharactersTyped
+      ? ((totalCharactersTyped - totalErrors) / totalCharactersTyped) * 100
+      : 100;
 
+    setAccuracy(Math.round(accuracy));
     return Math.round(netWPM);
   }, [snippetScores]);
 
-  // Handle game completion
   const finishGame = useCallback(() => {
     if (!isCompleted) {
       const finalWPM = calculateWPM();
@@ -115,7 +102,6 @@ const CodeDisplayPage = () => {
     }
   }, [calculateWPM, isCompleted]);
 
-  // Reset game state
   const resetGame = () => {
     setInputs(Array(1).fill(''));
     setCurrentIndices(Array(1).fill(0));
@@ -123,14 +109,14 @@ const CodeDisplayPage = () => {
     setIsActive(false);
     setIsCompleted(false);
     setWpm(0);
+    setAccuracy(100);
     setSnippetScores(Array(1).fill({ charactersTyped: 0, errors: 0 }));
-    startTimeRef.current = null; // Reset start time
+    startTimeRef.current = null;
     setCurrentSnippetIndex(0);
     containerRef.current.focus();
     codeContainerRef.current.scrollTop = 0;
   };
 
-  // Update input state
   const updateInput = useCallback((index, updater) => {
     setInputs((prev) => {
       const newInputs = [...prev];
@@ -140,7 +126,6 @@ const CodeDisplayPage = () => {
     });
   }, []);
 
-  // Update current index state
   const updateCurrentIndex = useCallback((index, updater) => {
     setCurrentIndices((prev) => {
       const newIndices = [...prev];
@@ -150,7 +135,6 @@ const CodeDisplayPage = () => {
     });
   }, []);
 
-  // Update typing scores
   const updateSnippetScore = useCallback((index, charactersTyped, errors) => {
     setSnippetScores((prevScores) => {
       const newScores = [...prevScores];
@@ -165,7 +149,6 @@ const CodeDisplayPage = () => {
     });
   }, []);
 
-  // Calculate position for next line
   const getNextLinePosition = useCallback((currentPosition, targetCode) => {
     let nextPosition = currentPosition;
     while (
@@ -174,7 +157,7 @@ const CodeDisplayPage = () => {
     ) {
       nextPosition++;
     }
-    nextPosition++; // Move past the newline
+    nextPosition++;
     while (
       nextPosition < targetCode.length &&
       targetCode[nextPosition] === ' '
@@ -184,12 +167,10 @@ const CodeDisplayPage = () => {
     return Math.min(nextPosition, targetCode.length);
   }, []);
 
-  // Handle keyboard input
   const handleKeyDown = useCallback(
     (e) => {
       if (isCompleted || timeLeft <= 0) return;
 
-      // Start timer on first keystroke
       if (!isActive && !isCompleted) {
         setIsActive(true);
         startTimeRef.current = Date.now();
@@ -235,7 +216,6 @@ const CodeDisplayPage = () => {
     ]
   );
 
-  // Get character styling class based on typing status
   const getCharClass = useCallback(
     (charIndex) => {
       const input = inputs[0];
@@ -252,14 +232,12 @@ const CodeDisplayPage = () => {
     [inputs, currentIndices, code]
   );
 
-  // Calculate typing progress percentage
   const calculateProgress = useCallback(() => {
     const totalCharacters = (code?.[0]?.code || '').length;
     const typedCharacters = snippetScores[0].charactersTyped;
     return Math.min(100, (typedCharacters / totalCharacters) * 100);
   }, [snippetScores, code]);
 
-  // Loading state
   if (loading) {
     return (
       <div className="text-white flex justify-center items-center h-screen">
@@ -268,7 +246,6 @@ const CodeDisplayPage = () => {
     );
   }
 
-  // Error state
   if (error) {
     return <div className="text-red-500">Error: {error}</div>;
   }
@@ -310,14 +287,19 @@ const CodeDisplayPage = () => {
             <pre className="mb-10 mt-10 p-2 bg-background rounded-lg">
               <code className="leading-10 text-3xl font-mono whitespace-pre-wrap">
                 {(code?.[0]?.code || '').split('').map((char, charIndex) => {
-                  if (char === '=' && (code?.[0]?.code || '')[charIndex + 1] === '=') {
-                    return <span key={charIndex} className={getCharClass(charIndex)}>
-                      {'=='}
-                    </span>;
+                  if (char === '=' && code?.[0]?.code[charIndex + 1] === '=') {
+                    return (
+                      <>
+                        <span className={getCharClass(charIndex)}>{'='}</span>
+                        <span className={getCharClass(charIndex)}>{'='}</span>
+                      </>
+                    );
                   }
-                  return <span key={charIndex} className={getCharClass(charIndex)}>
-                    {char}
-                  </span>;
+                  return (
+                    <span key={charIndex} className={getCharClass(charIndex)}>
+                      {char}
+                    </span>
+                  );
                 })}
               </code>
             </pre>
@@ -325,7 +307,7 @@ const CodeDisplayPage = () => {
 
           {isCompleted && (
             <div className="font-sans text-white text-3xl text-center mt-8">
-              WPM: {wpm}
+              WPM: {wpm} | Accuracy: {accuracy}%
             </div>
           )}
 
