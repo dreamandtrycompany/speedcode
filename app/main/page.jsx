@@ -127,7 +127,7 @@ const Page = () => {
       <div className="flex flex-col md:flex-row h-screen w-full">
         {/* Codes List Section */}
         <div className="font-mono w-full md:w-1/2 p-4 relative md:fixed md:left-0 md:top-20 md:bottom-0">
-          <div className="h-[calc(100vh-500px)] md:h-[calc(100vh-230px)] overflow-y-auto">
+          <div className="h-[calc(100vh-540px)] md:h-[calc(100vh-230px)] overflow-y-auto">
             <ul className="space-y-2">
               {codes.map((code, index) => (
                 <li
@@ -149,7 +149,7 @@ const Page = () => {
         {/* Description Section */}
         <div className="border-t-2 border-gray-500 md:border-none font-sans w-full md:w-1/2 p-5 relative md:fixed md:right-0 md:top-20 md:bottom-0">
           {selectedCode ? (
-            <div className="h-[calc(100vh-500px)] md:h-[calc(100vh-230px)] overflow-y-auto text-white">
+            <div className="h-[calc(100vh-540px)] md:h-[calc(100vh-230px)] overflow-y-auto text-white">
               <h1 className="text-4xl font-bold mb-8">{selectedCode.title}</h1>
               <div
                 className="markdown-content"
