@@ -282,7 +282,7 @@ const CodeDisplayPage = () => {
         tabIndex={0}
         onKeyDown={handleKeyDown}
       >
-        <div className="w-full max-w-6xl flex flex-col">
+        <div className="w-full max-w-6xl flex font-mono flex-col">
           <div className="mb-4 flex justify-between items-center">
             <div className="font-sans text-white text-3xl">
               {isCompleted ? (
@@ -308,7 +308,7 @@ const CodeDisplayPage = () => {
             className="flex-grow bg-background rounded-lg p-4 overflow-auto"
           >
             <pre className="mb-10 mt-10 p-2 bg-background rounded-lg">
-              <code className="leading-10 text-3xl font-sans whitespace-pre-wrap">
+              <code className="leading-10 text-3xl font-mono whitespace-pre-wrap">
                 {(code?.[0]?.code || '').split('').map((char, charIndex) => (
                   <span key={charIndex} className={getCharClass(charIndex)}>
                     {char}

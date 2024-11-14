@@ -41,7 +41,7 @@ const Page = () => {
       <div className="overflow-y-hidden mt-10 flex-1 w-full">
         <section className="px-4 sm:px-8 lg:px-16 py-8 sm:py-12 font-sans">
           <div className="w-full flex justify-center">
-            <span className="block text-center text-4xl sm:text-8xl lg:text-8xl mb-8 lg:mb-14">
+            <span className="font-sans font-bold block text-center text-4xl sm:text-8xl lg:text-8xl mb-8 lg:mb-14">
               Contact Us
             </span>
           </div>
@@ -72,7 +72,7 @@ const Page = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  className="w-full p-3 rounded-3xl bg-[#313131] placeholder-gray-400"
+                  className="font-mono w-full p-3 rounded-3xl bg-[#313131] placeholder-gray-400"
                 />
                 <input
                   type="email"
@@ -80,14 +80,14 @@ const Page = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full p-3 rounded-3xl bg-[#313131] placeholder-gray-400"
+                  className="font-mono w-full p-3 rounded-3xl bg-[#313131] placeholder-gray-400"
                 />
                 <textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Type your message here..."
                   rows="4"
-                  className="w-full p-4 rounded-3xl bg-[#313131] resize-none placeholder-gray-400"
+                  className="font-mono w-full p-4 rounded-3xl bg-[#313131] resize-none placeholder-gray-400"
                   required
                 />
                 <button
