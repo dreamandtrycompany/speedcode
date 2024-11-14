@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect } from 'react';
 //path for routing db
-import { getCodes } from '../../lib/supabase'; 
+import { getCodes } from '../../lib/supabase';
 import { useRouter } from 'next/navigation';
-import AuthNavbar from '../(components)/AuthNavbar';
+import { BlinkBlur } from 'react-loading-indicators';
 
 const Page = () => {
   const [codes, setCodes] = useState([]);
@@ -52,23 +52,24 @@ const Page = () => {
 
   return (
     <>
-      <AuthNavbar />
       <div className="overflow-y-hidden">
         <div className="justify-center flex items-center mt-[9rem]">
-          <div className="font-sans w-[50vw] h-[60vh] bg-[#1f1f1f] p-10 rounded-4xl">
+          <div className="flex items-center justify-center font-sans w-[50vw] h-[60vh] bg-[#1f1f1f] p-10 rounded-4xl">
             {loading ? (
-              <p className="text-white">Loading Al...</p>
+              <div className="text-white flex justify-center items-center h-screen">
+                <BlinkBlur color="#316c31" size="medium" text="" textColor="" />
+              </div>
             ) : error ? (
               <p className="text-red-500">Error: {error}</p>
             ) : (
-              <div className="h-full overflow-y-auto">
+              <div className="h-full w-full overflow-y-auto">
                 <ul className="space-y-4">
                   {codes.map((code, index) => (
-                    <li 
-                      key={code.id} 
+                    <li
+                      key={code.id}
                       className={`cursor-pointer p-2 rounded transition-all duration-300 ${
-                        selectedCode?.id === code.id 
-                          ? 'bg-[#29b960] text-white' 
+                        selectedCode?.id === code.id
+                          ? 'bg-[#29b960] text-white'
                           : 'text-white hover:bg-gray-700'
                       }`}
                       onClick={() => handleCodeSelect(code)}
@@ -86,10 +87,10 @@ const Page = () => {
 
         <div className="justify-center flex items-center p-6">
           <div className="p-12">
-            <button 
+            <button
               className={`font-sans ${
-                selectedCode 
-                  ? 'bg-[#29b960] hover:bg-[#134d29]' 
+                selectedCode
+                  ? 'bg-[#29b960] hover:bg-[#134d29]'
                   : 'bg-gray-500 cursor-not-allowed'
               } transition-all duration-300 rounded-full p-5 text-white`}
               onClick={handleStartSelected}
@@ -98,9 +99,9 @@ const Page = () => {
               Start Selected
             </button>
           </div>
-          
+
           <div className="p-12">
-            <button 
+            <button
               className="font-sans bg-[#29b960] hover:bg-[#134d29] hover:border-[#134d29] transition-all duration-300 rounded-full p-5 text-white"
               onClick={handleStartRandom}
               disabled={codes.length === 0}
