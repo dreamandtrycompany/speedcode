@@ -17,17 +17,74 @@ const CodeDisplayPage = () => {
   const [currentIndices, setCurrentIndices] = useState(Array(1).fill(0));
   const [timeLeft, setTimeLeft] = useState(60);
   const [isActive, setIsActive] = useState(false);
-  const [wpm, setWpm] = useState(0);
-  const [accuracy, setAccuracy] = useState(100);
   const [isCompleted, setIsCompleted] = useState(false);
-  const [snippetScores, setSnippetScores] = useState(
-    Array(1).fill({ charactersTyped: 0, errors: 0 })
-  );
-  const containerRef = useRef(null);
+
+  // Enhanced metrics state
+  const [wpm, setWpm] = useState(0);
+  const [rawWpm, setRawWpm] = useState(0);
+  const [accuracy, setAccuracy] = useState(100);
+  const [charRatio, setCharRatio] = useState({ correct: 0, incorrect: 0 });
+  const [consistency, setConsistency] = useState(100);
+
+  // References
   const startTimeRef = useRef(null);
+  const wpmHistoryRef = useRef([]);
+  const containerRef = useRef(null);
   const codeContainerRef = useRef(null);
 
-  // Add updateMetrics function
+  // Function to update inputs at a given index
+  const updateInput = (index, updater) => {
+    setInputs((prevInputs) =>
+      prevInputs.map((input, i) => (i === index ? updater(input) : input))
+    );
+  };
+  
+
+  // Function to update current indices at a given index
+  const updateCurrentIndex = (index, updater) => {
+    setCurrentIndices((prevIndices) =>
+      prevIndices.map((currentIndex, i) => (i === index ? updater(currentIndex) : currentIndex))
+    );
+  };
+  
+
+  const getCharClass = (charIndex) => {
+    const targetCode = code?.[0]?.code || '';
+    const currentIndex = currentIndices[0]; // index of current position in typing
+    const typedChar = inputs[0][charIndex]; // character user has typed at this position
+    const targetChar = targetCode[charIndex]; // actual character in target code
+  
+    if (charIndex < currentIndex) {
+      return typedChar === targetChar ? 'text-green-500' : 'text-red-500'; // Correct or incorrect character
+    } else if (charIndex === currentIndex) {
+      return 'text-orange-500'; // Current position
+    } else {
+      return 'text-gray-500'; // Remaining text
+    }
+  };
+
+  const finishGame = () => {
+    setIsCompleted(true);
+    setIsActive(false);
+    setTimeLeft(0); // Stop the timer
+    // Calculate any final scores or ratios here if necessary
+  };
+  
+
+  const calculateProgress = () => {
+    const targetCode = code?.[0]?.code || '';
+    const totalCharacters = targetCode.length;
+    const correctlyTyped = charRatio.correct;
+  
+    if (totalCharacters === 0) return 0;
+  
+    // Calculate progress as a percentage
+    return Math.round((correctlyTyped / totalCharacters) * 100);
+  };
+
+  // Function to get the position of the next line (mock function, can be customized)
+
+  // Metrics update function
   const updateMetrics = useCallback(() => {
     if (!startTimeRef.current || !isActive) return;
 
@@ -36,27 +93,42 @@ const CodeDisplayPage = () => {
 
     if (totalTime <= 0) return;
 
-    const totalCharactersTyped = snippetScores[0].charactersTyped;
-    const totalErrors = snippetScores[0].errors;
+    const totalCharactersTyped = charRatio.correct + charRatio.incorrect;
 
-    // Calculate WPM: (characters / 5) / time
-    const grossWPM = totalCharactersTyped / 5 / totalTime;
-    const netWPM = Math.max(0, grossWPM - totalErrors / totalTime);
-    
+    // Calculate Raw WPM (including mistakes)
+    const currentRawWpm = Math.round(totalCharactersTyped / 5 / totalTime);
+
+    // Calculate WPM (only correct characters)
+    const currentWpm = Math.round(charRatio.correct / 5 / totalTime);
+
     // Calculate accuracy
-    const currentAccuracy = totalCharactersTyped
-      ? ((totalCharactersTyped - totalErrors) / totalCharactersTyped) * 100
+    const currentAccuracy = totalCharactersTyped > 0
+      ? Math.round((charRatio.correct / totalCharactersTyped) * 100)
       : 100;
 
-    setWpm(Math.round(netWPM));
-    setAccuracy(Math.round(currentAccuracy));
-  }, [snippetScores, isActive]);
+    // Update WPM history for consistency calculation
+    wpmHistoryRef.current.push(currentRawWpm);
 
-  // Add effect for live updates
+    // Calculate consistency using coefficient of variation
+    if (wpmHistoryRef.current.length > 1) {
+      const mean = wpmHistoryRef.current.reduce((a, b) => a + b) / wpmHistoryRef.current.length;
+      const variance = wpmHistoryRef.current.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / wpmHistoryRef.current.length;
+      const standardDeviation = Math.sqrt(variance);
+      const cv = (standardDeviation / mean) * 100;
+      const currentConsistency = Math.max(0, Math.min(100, 100 - cv));
+      setConsistency(Math.round(currentConsistency));
+    }
+
+    setWpm(currentWpm);
+    setRawWpm(currentRawWpm);
+    setAccuracy(currentAccuracy);
+  }, [charRatio, isActive]);
+
+  // Effect for live updates
   useEffect(() => {
     let intervalId;
     if (isActive && !isCompleted) {
-      intervalId = setInterval(updateMetrics, 500); // Update every 500ms
+      intervalId = setInterval(updateMetrics, 200);
     }
     return () => clearInterval(intervalId);
   }, [isActive, isCompleted, updateMetrics]);
@@ -94,20 +166,6 @@ const CodeDisplayPage = () => {
     return () => clearInterval(timer);
   }, [isActive, timeLeft, isCompleted]);
 
-  useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.focus();
-    }
-  }, []);
-
-  // Modify finishGame to use the current WPM
-  const finishGame = useCallback(() => {
-    if (!isCompleted) {
-      setIsCompleted(true);
-      setIsActive(false);
-    }
-  }, [isCompleted]);
-
   const resetGame = () => {
     setInputs(Array(1).fill(''));
     setCurrentIndices(Array(1).fill(0));
@@ -115,45 +173,16 @@ const CodeDisplayPage = () => {
     setIsActive(false);
     setIsCompleted(false);
     setWpm(0);
+    setRawWpm(0);
     setAccuracy(100);
-    setSnippetScores(Array(1).fill({ charactersTyped: 0, errors: 0 }));
+    setConsistency(100);
+    setCharRatio({ correct: 0, incorrect: 0 });
+    wpmHistoryRef.current = [];
     startTimeRef.current = null;
     setCurrentSnippetIndex(0);
     containerRef.current.focus();
     codeContainerRef.current.scrollTop = 0;
   };
-
-  const updateInput = useCallback((index, updater) => {
-    setInputs((prev) => {
-      const newInputs = [...prev];
-      newInputs[index] =
-        typeof updater === 'function' ? updater(newInputs[index]) : updater;
-      return newInputs;
-    });
-  }, []);
-
-  const updateCurrentIndex = useCallback((index, updater) => {
-    setCurrentIndices((prev) => {
-      const newIndices = [...prev];
-      newIndices[index] =
-        typeof updater === 'function' ? updater(newIndices[index]) : updater;
-      return newIndices;
-    });
-  }, []);
-
-  const updateSnippetScore = useCallback((index, charactersTyped, errors) => {
-    setSnippetScores((prevScores) => {
-      const newScores = [...prevScores];
-      newScores[index] = {
-        charactersTyped: Math.max(
-          0,
-          newScores[index].charactersTyped + charactersTyped
-        ),
-        errors: Math.max(0, newScores[index].errors + errors),
-      };
-      return newScores;
-    });
-  }, []);
 
   const getNextLinePosition = useCallback((currentPosition, targetCode) => {
     let nextPosition = currentPosition;
@@ -173,101 +202,93 @@ const CodeDisplayPage = () => {
     return Math.min(nextPosition, targetCode.length);
   }, []);
 
+  // Modified handleKeyDown to track correct/incorrect characters
   const handleKeyDown = useCallback(
     (e) => {
       if (isCompleted || timeLeft <= 0) return;
-
+  
       if (!isActive && !isCompleted) {
         setIsActive(true);
         startTimeRef.current = Date.now();
       }
-
+  
       const targetCode = code?.[0]?.code || '';
       const currentIndex = currentIndices[0];
-
+  
       if (e.key === 'Backspace') {
         if (currentIndex > 0) {
-          updateInput(0, (prev) => prev.slice(0, -1));
-          updateCurrentIndex(0, (prev) => Math.max(0, prev - 1));
-          updateSnippetScore(0, -1, 0);
+          const lastChar = inputs[0][inputs[0].length - 1];
+          const wasCorrect = lastChar === targetCode[currentIndex - 1];
+  
+          setCharRatio((prev) => ({
+            correct: prev.correct - (wasCorrect ? 1 : 0),
+            incorrect: prev.incorrect - (wasCorrect ? 0 : 1)
+          }));
+  
+          // Update inputs and current index
+          setInputs((prev) => {
+            const updatedInputs = [...prev];
+            updatedInputs[0] = updatedInputs[0].slice(0, -1);
+            return updatedInputs;
+          });
+          
+          setCurrentIndices((prev) => {
+            const updatedIndices = [...prev];
+            updatedIndices[0] = Math.max(0, currentIndex - 1);
+            return updatedIndices;
+          });
         }
       } else if (e.key === 'Enter') {
         e.preventDefault();
         const nextPosition = getNextLinePosition(currentIndex, targetCode);
         const spacesToAdd = Math.max(0, nextPosition - currentIndex - 1);
-        updateInput(0, (prev) => prev + '\n' + ' '.repeat(spacesToAdd));
-        updateCurrentIndex(0, nextPosition);
-        updateSnippetScore(0, spacesToAdd + 1, 0);
+  
+        setCharRatio((prev) => ({
+          ...prev,
+          correct: prev.correct + spacesToAdd + 1
+        }));
+  
+        setInputs((prev) => {
+          const updatedInputs = [...prev];
+          updatedInputs[0] += '\n' + ' '.repeat(spacesToAdd);
+          return updatedInputs;
+        });
+  
+        setCurrentIndices((prev) => {
+          const updatedIndices = [...prev];
+          updatedIndices[0] = nextPosition;
+          return updatedIndices;
+        });
       } else if (e.key.length === 1 && currentIndex < targetCode.length) {
-        updateInput(0, (prev) => prev + e.key);
-        updateCurrentIndex(0, (prev) => Math.min(prev + 1, targetCode.length));
-        updateSnippetScore(0, 1, e.key !== targetCode[currentIndex] ? 1 : 0);
-
+        const isCorrect = e.key === targetCode[currentIndex];
+  
+        setCharRatio((prev) => ({
+          correct: prev.correct + (isCorrect ? 1 : 0),
+          incorrect: prev.incorrect + (isCorrect ? 0 : 1)
+        }));
+  
+        setInputs((prev) => {
+          const updatedInputs = [...prev];
+          updatedInputs[0] += e.key;
+          return updatedInputs;
+        });
+  
+        setCurrentIndices((prev) => {
+          const updatedIndices = [...prev];
+          updatedIndices[0] = Math.min(currentIndex + 1, targetCode.length);
+          return updatedIndices;
+        });
+  
         if (currentIndex === targetCode.length - 1) {
           finishGame();
         }
       }
     },
-    [
-      currentIndices,
-      isActive,
-      isCompleted,
-      updateInput,
-      updateCurrentIndex,
-      updateSnippetScore,
-      getNextLinePosition,
-      finishGame,
-      code,
-      timeLeft,
-    ]
+    [code, currentIndices, inputs, isActive, isCompleted, timeLeft, getNextLinePosition, finishGame]
   );
+  
 
-  const getCharClass = useCallback(
-    (charIndex) => {
-      const input = inputs[0];
-      const currentIndex = currentIndices[0];
-      if (charIndex < currentIndex) {
-        return input[charIndex] === (code?.[0]?.code || '')[charIndex]
-          ? 'text-green-400'
-          : 'text-red-400';
-      }
-      return charIndex === currentIndex
-        ? 'text-white bg-white/20'
-        : 'text-gray-400';
-    },
-    [inputs, currentIndices, code]
-  );
-
-  const calculateProgress = useCallback(() => {
-    const totalCharacters = (code?.[0]?.code || '').length;
-    const typedCharacters = snippetScores[0].charactersTyped;
-    return Math.min(100, (typedCharacters / totalCharacters) * 100);
-  }, [snippetScores, code]);
-
-  // Add spacebar prevention
-  useEffect(() => {
-    const preventSpaceScroll = (e) => {
-      if (e.code === 'Space') {
-        e.preventDefault();
-      }
-    };
-    
-    window.addEventListener('keydown', preventSpaceScroll);
-    return () => window.removeEventListener('keydown', preventSpaceScroll);
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="text-white flex justify-center items-center h-screen">
-        <BlinkBlur color="#316c31" size="medium" text="" textColor="" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return <div className="text-red-500">Error: {error}</div>;
-  }
-
+  // Rest of your component remains the same, but update the Stats Section to show new metrics
   return (
     <>
       <NavbarCodeSpace />
@@ -277,14 +298,12 @@ const CodeDisplayPage = () => {
         tabIndex={0}
         onKeyDown={handleKeyDown}
       >
-        <div className="w-full max-w-4xl px-4 flex flex-col items-center">
+        <div className="w-full max-w-7xl px-4 flex flex-col items-center">
           {/* Progress Section */}
           <div className="w-full mb-5">
             <div className="flex justify-between items-center">
               <div className="font-sans font-bold text-white text-3xl">
-                {isCompleted ? (
-                  'Great, completed.'
-                ) : (
+                {isCompleted ? 'Great, completed.' : (
                   <NumberFlow
                     value={timeLeft}
                     format={{ notation: 'compact' }}
@@ -305,54 +324,43 @@ const CodeDisplayPage = () => {
           <div className="w-full mb-5">
             <div
               ref={codeContainerRef}
-              className="w-full bg-background border border-[#1a1a1a] rounded-2xl boxShadow h-[50vh] overflow-y-auto"
+              className="w-full bg-background border-4 border-[#1a1a1a] rounded-2xl boxShadow h-[50vh] overflow-y-auto"
             >
               <pre className="p-6">
-                <code className="leading-10 text-3xl font-bold font-mono whitespace-pre-wrap">
-                  {(code?.[0]?.code || '').split('').map((char, charIndex) => {
-                    if (char === '=' && code?.[0]?.code[charIndex + 1] === '=') {
-                      return (
-                        <>
-                          <span className={getCharClass(charIndex)}>{'='}</span>
-                          <span className={getCharClass(charIndex)}>{'='}</span>
-                        </>
-                      );
-                    }
-                    return (
-                      <span key={charIndex} className={getCharClass(charIndex)}>
-                        {char}
-                      </span>
-                    );
-                  })}
-                </code>
-              </pre>
+              <code className="leading-10 text-3xl font-bold font-mono whitespace-pre-wrap">
+                {(code?.[0]?.code || '').split('').map((char, charIndex) => (
+                  <span key={charIndex} className={getCharClass(charIndex)}>
+                    {char}
+                  </span>
+                ))}
+              </code>
+            </pre>
             </div>
           </div>
 
-          {/* Stats Section with NumberFlow animations */}
-          <div className="w-full mb-5 flex">
-            <div className="w-full flex justify-between font-sans font-bold text-white text-3xl">
-              <div className="flex gap-2">
-                <span>WPM: </span>
-                <NumberFlow
-                  value={wpm}
-                  format={{ notation: 'standard' }}
-                  locales="en-US"
-                />
-              </div>
-              <div className="flex gap-2">
-                <span>Accuracy: </span>
-                <NumberFlow
-                  value={accuracy}
-                  format={{ notation: 'standard' }}
-                  locales="en-US"
-                />
-                <span>%</span>
-              </div>
+          {/* Enhanced Stats Section */}
+          <div className="font-sans font-bold rounded-6xl w-full mb-5 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-36">
+            <div className="flex gap-2 text-white text-xl">
+              <span>WPM:</span>
+              <NumberFlow value={wpm} format={{ notation: 'standard' }} locales="en-US" />
+            </div>
+            <div className="flex gap-2 text-white text-xl">
+              <span>Raw WPM:</span>
+              <NumberFlow value={rawWpm} format={{ notation: 'standard' }} locales="en-US" />
+            </div>
+            <div className="flex gap-2 text-white text-xl">
+              <span>Accuracy:</span>
+              <NumberFlow value={accuracy} format={{ notation: 'standard' }} locales="en-US" />
+              <span>%</span>
+            </div>
+            <div className="flex gap-2 text-white text-xl">
+              <span>Consistency:</span>
+              <NumberFlow value={consistency} format={{ notation: 'standard' }} locales="en-US" />
+              <span>%</span>
             </div>
           </div>
 
-          {/* Reset Button Section */}
+          {/* Reset Button */}
           <div className="w-full flex justify-center">
             <button
               className="px-4 py-2 font-sans text-white bg-background rounded focus:outline-none"
@@ -360,8 +368,6 @@ const CodeDisplayPage = () => {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                x="0px"
-                y="0px"
                 width="30"
                 height="30"
                 viewBox="0 0 30 30"
