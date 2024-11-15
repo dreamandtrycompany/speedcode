@@ -34,13 +34,8 @@ const Page = () => {
       setIsMobile(window.innerWidth < 768);
     };
 
-    // Check on mount
     checkScreenSize();
-
-    // Add event listener for window resize
     window.addEventListener('resize', checkScreenSize);
-
-    // Cleanup
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
@@ -128,45 +123,53 @@ const Page = () => {
       <div className="flex flex-col md:flex-row h-screen w-full">
         {/* Codes List Section */}
         <div className="font-mono w-full md:w-1/2 p-10 relative md:fixed md:left-0 md:top-20 md:bottom-0">
-          <div className="h-[calc(100vh-580px)] md:h-[calc(100vh-230px)] overflow-y-auto">
-            <ul className="space-y-2">
-              {codes.map((code, index) => (
-                <li
-                  key={code.id}
-                  className={`cursor-pointer p-2 rounded transition-all duration-300 ${
-                    selectedCode?.id === code.id
-                      ? 'bg-[#29b960] text-white'
-                      : 'text-white hover:bg-gray-700'
-                  }`}
-                  onClick={() => handleCodeSelect(code)}
-                >
-                  {index + 1}. {code.title}
-                </li>
-              ))}
-            </ul>
+          <div className="relative h-[calc(100vh-580px)] md:h-[calc(100vh-230px)]">
+            <div className="absolute inset-0 overflow-y-auto pb-8">
+              <ul className="space-y-2">
+                {codes.map((code, index) => (
+                  <li
+                    key={code.id}
+                    className={`cursor-pointer p-2 rounded transition-all duration-300 ${
+                      selectedCode?.id === code.id
+                        ? 'bg-[#29b960] text-white'
+                        : 'text-white hover:bg-[#1a1a1a] hover:rounded-5xl'
+                    }`}
+                    onClick={() => handleCodeSelect(code)}
+                  >
+                    {index + 1}. {code.title}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 h-28 md:h-48 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
           </div>
         </div>
 
         {/* Description Section */}
-        <div className="border-t-2 border-gray-500 md:border-none font-sans w-full md:w-1/2 p-10 relative md:fixed md:right-0 md:top-20 md:bottom-0">
-          {selectedCode ? (
-            <div className="h-[calc(100vh-580px)] md:h-[calc(100vh-230px)] overflow-y-auto text-white">
-              <h1 className="text-4xl font-bold mb-8">{selectedCode.title}</h1>
-              <div
-                className="markdown-content"
-                style={{ fontFamily: 'var(--font-geist-sans)' }}
-                dangerouslySetInnerHTML={{
-                  __html: marked(selectedCode.description),
-                }}
-              />
-            </div>
-          ) : (
-            <div className="h-[calc(100vh-380px)] md:h-[calc(100vh-180px)] flex items-center justify-center text-gray-400">
-              <p className="text-xl font-mono">
-                select a code to view description
-              </p>
-            </div>
-          )}
+        <div className="border-t-2 border-[#1a1a1a] md:border-none font-sans w-full md:w-1/2 p-10 relative md:fixed md:right-0 md:top-20 md:bottom-0">
+          <div className="relative h-[calc(100vh-580px)] md:h-[calc(100vh-230px)]">
+            {selectedCode ? (
+              <div className="absolute inset-0 overflow-y-auto pb-8">
+                <div className="text-white">
+                  <h1 className="text-4xl font-bold mb-8">{selectedCode.title}</h1>
+                  <div
+                    className="markdown-content"
+                    style={{ fontFamily: 'var(--font-geist-sans)' }}
+                    dangerouslySetInnerHTML={{
+                      __html: marked(selectedCode.description),
+                    }}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center text-[#575757]">
+                <p className="text-xl font-mono">
+                  select a code to view description here
+                </p>
+              </div>
+            )}
+            <div className="absolute bottom-0 left-0 right-0 h-28 md:h-48 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
+          </div>
         </div>
       </div>
 

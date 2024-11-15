@@ -27,6 +27,40 @@ const CodeDisplayPage = () => {
   const startTimeRef = useRef(null);
   const codeContainerRef = useRef(null);
 
+  // Add updateMetrics function
+  const updateMetrics = useCallback(() => {
+    if (!startTimeRef.current || !isActive) return;
+
+    const endTime = Date.now();
+    const totalTime = (endTime - startTimeRef.current) / 60000; // Convert to minutes
+
+    if (totalTime <= 0) return;
+
+    const totalCharactersTyped = snippetScores[0].charactersTyped;
+    const totalErrors = snippetScores[0].errors;
+
+    // Calculate WPM: (characters / 5) / time
+    const grossWPM = totalCharactersTyped / 5 / totalTime;
+    const netWPM = Math.max(0, grossWPM - totalErrors / totalTime);
+    
+    // Calculate accuracy
+    const currentAccuracy = totalCharactersTyped
+      ? ((totalCharactersTyped - totalErrors) / totalCharactersTyped) * 100
+      : 100;
+
+    setWpm(Math.round(netWPM));
+    setAccuracy(Math.round(currentAccuracy));
+  }, [snippetScores, isActive]);
+
+  // Add effect for live updates
+  useEffect(() => {
+    let intervalId;
+    if (isActive && !isCompleted) {
+      intervalId = setInterval(updateMetrics, 500); // Update every 500ms
+    }
+    return () => clearInterval(intervalId);
+  }, [isActive, isCompleted, updateMetrics]);
+
   useEffect(() => {
     const fetchCode = async () => {
       try {
@@ -66,41 +100,13 @@ const CodeDisplayPage = () => {
     }
   }, []);
 
-  const calculateWPM = useCallback(() => {
-    if (!startTimeRef.current) return 0;
-
-    const endTime = Date.now();
-    const totalTime = (endTime - startTimeRef.current) / 60000; // Convert to minutes
-
-    if (totalTime <= 0) return 0;
-
-    const totalCharactersTyped = snippetScores.reduce(
-      (sum, score) => sum + score.charactersTyped,
-      0
-    );
-    const totalErrors = snippetScores.reduce(
-      (sum, score) => sum + score.errors,
-      0
-    );
-
-    const grossWPM = totalCharactersTyped / 5 / totalTime;
-    const netWPM = Math.max(0, grossWPM - totalErrors / totalTime);
-    const accuracy = totalCharactersTyped
-      ? ((totalCharactersTyped - totalErrors) / totalCharactersTyped) * 100
-      : 100;
-
-    setAccuracy(Math.round(accuracy));
-    return Math.round(netWPM);
-  }, [snippetScores]);
-
+  // Modify finishGame to use the current WPM
   const finishGame = useCallback(() => {
     if (!isCompleted) {
-      const finalWPM = calculateWPM();
-      setWpm(finalWPM);
       setIsCompleted(true);
       setIsActive(false);
     }
-  }, [calculateWPM, isCompleted]);
+  }, [isCompleted]);
 
   const resetGame = () => {
     setInputs(Array(1).fill(''));
@@ -238,6 +244,18 @@ const CodeDisplayPage = () => {
     return Math.min(100, (typedCharacters / totalCharacters) * 100);
   }, [snippetScores, code]);
 
+  // Add spacebar prevention
+  useEffect(() => {
+    const preventSpaceScroll = (e) => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+      }
+    };
+    
+    window.addEventListener('keydown', preventSpaceScroll);
+    return () => window.removeEventListener('keydown', preventSpaceScroll);
+  }, []);
+
   if (loading) {
     return (
       <div className="text-white flex justify-center items-center h-screen">
@@ -253,67 +271,91 @@ const CodeDisplayPage = () => {
   return (
     <>
       <NavbarCodeSpace />
-      <div
+      <div 
         ref={containerRef}
-        className="bg-background min-h-screen flex flex-col items-center justify-center p-4 mt-[2rem] focus:outline-none"
+        className="bg-background h-screen fixed inset-0 flex items-center justify-center mt-10 overflow-hidden"
         tabIndex={0}
         onKeyDown={handleKeyDown}
       >
-        <div className="w-full max-w-6xl flex font-mono flex-col">
-          <div className="mb-4 flex justify-between items-center">
-            <div className="font-sans text-white text-3xl">
-              {isCompleted ? (
-                'COMPLETED'
-              ) : (
+        <div className="w-full max-w-4xl px-4 flex flex-col items-center">
+          {/* Progress Section */}
+          <div className="w-full mb-5">
+            <div className="flex justify-between items-center">
+              <div className="font-sans font-bold text-white text-3xl">
+                {isCompleted ? (
+                  'Great, completed.'
+                ) : (
+                  <NumberFlow
+                    value={timeLeft}
+                    format={{ notation: 'compact' }}
+                    locales="en-US"
+                  />
+                )}
+              </div>
+              <div className="w-1/2 bg-neutral-700 rounded-full h-3">
+                <div
+                  className="bg-[#2b9b60] h-3 rounded-full transition-all duration-300 ease-in-out"
+                  style={{ width: `${calculateProgress()}%` }}
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          {/* Code Section */}
+          <div className="w-full mb-5">
+            <div
+              ref={codeContainerRef}
+              className="w-full bg-background border border-[#1a1a1a] rounded-2xl boxShadow h-[50vh] overflow-y-auto"
+            >
+              <pre className="p-6">
+                <code className="leading-10 text-3xl font-bold font-mono whitespace-pre-wrap">
+                  {(code?.[0]?.code || '').split('').map((char, charIndex) => {
+                    if (char === '=' && code?.[0]?.code[charIndex + 1] === '=') {
+                      return (
+                        <>
+                          <span className={getCharClass(charIndex)}>{'='}</span>
+                          <span className={getCharClass(charIndex)}>{'='}</span>
+                        </>
+                      );
+                    }
+                    return (
+                      <span key={charIndex} className={getCharClass(charIndex)}>
+                        {char}
+                      </span>
+                    );
+                  })}
+                </code>
+              </pre>
+            </div>
+          </div>
+
+          {/* Stats Section with NumberFlow animations */}
+          <div className="w-full mb-5 flex">
+            <div className="w-full flex justify-between font-sans font-bold text-white text-3xl">
+              <div className="flex gap-2">
+                <span>WPM: </span>
                 <NumberFlow
-                  value={timeLeft}
-                  format={{ notation: 'compact' }}
+                  value={wpm}
+                  format={{ notation: 'standard' }}
                   locales="en-US"
                 />
-              )}
-            </div>
-            <div className="w-1/2 bg-neutral-700 rounded-full h-3">
-              <div
-                className="bg-white h-3 rounded-full transition-all duration-300 ease-in-out"
-                style={{ width: `${calculateProgress()}%` }}
-              ></div>
+              </div>
+              <div className="flex gap-2">
+                <span>Accuracy: </span>
+                <NumberFlow
+                  value={accuracy}
+                  format={{ notation: 'standard' }}
+                  locales="en-US"
+                />
+                <span>%</span>
+              </div>
             </div>
           </div>
 
-          <div
-            ref={codeContainerRef}
-            className="flex-grow bg-background rounded-lg p-4 overflow-auto"
-          >
-            <pre className="mb-10 mt-10 p-2 bg-background rounded-lg">
-              <code className="leading-10 text-3xl font-mono whitespace-pre-wrap">
-                {(code?.[0]?.code || '').split('').map((char, charIndex) => {
-                  if (char === '=' && code?.[0]?.code[charIndex + 1] === '=') {
-                    return (
-                      <>
-                        <span className={getCharClass(charIndex)}>{'='}</span>
-                        <span className={getCharClass(charIndex)}>{'='}</span>
-                      </>
-                    );
-                  }
-                  return (
-                    <span key={charIndex} className={getCharClass(charIndex)}>
-                      {char}
-                    </span>
-                  );
-                })}
-              </code>
-            </pre>
-          </div>
-
-          {isCompleted && (
-            <div className="font-sans text-white text-3xl text-center mt-8">
-              WPM: {wpm} | Accuracy: {accuracy}%
-            </div>
-          )}
-
-          <div className="flex justify-center items-center">
+          {/* Reset Button Section */}
+          <div className="w-full flex justify-center">
             <button
-              className="mt-6 px-4 py-2 font-sans text-white bg-background rounded focus:outline-none"
+              className="px-4 py-2 font-sans text-white bg-background rounded focus:outline-none"
               onClick={resetGame}
             >
               <svg
