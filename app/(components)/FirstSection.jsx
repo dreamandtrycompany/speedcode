@@ -1,20 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 const FirstSection = ({ isSignedIn, user }) => {
+  // State for controlling visibility of different elements
+  const [showTitle, setShowTitle] = useState(false);
+  const [showSpeedCode, setShowSpeedCode] = useState(false);
+  const [showButtons, setShowButtons] = useState(false);
+
+  useEffect(() => {
+    // Staggered animations with setTimeout
+    setTimeout(() => setShowTitle(true), 400);  // title appears first
+    setTimeout(() => setShowSpeedCode(true), 900);  // speedcode text appears second
+    setTimeout(() => setShowButtons(true), 1200);  // buttons appear last
+  }, []);
+
   return (
     <section className="h-screen w-full flex flex-col md:flex-row">
       <div className="flex-1 flex justify-center items-center px-4 md:px-8 lg:px-20 font-sans">
         <div className="text-left">
           <h1 className="md:pl-[8rem] mt-[18rem] md:m-auto text-center font-bold text-7xl sm:text-6xl md:text-7xl md:text-left lg:text-8xl xl:text-9xl tracking-tight break-words whitespace-normal">
-            Ready. Set. Type.
+            <span 
+              className={`transition-opacity duration-1000 ease-in-out ${
+                showTitle ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              Ready. Set. Type.
+            </span>
             <br />
-            <span className="text-[#29b960]">Speed</span>
-            <span className="text-[#C23E3E]">Code</span>
+            <span 
+              className={`transition-opacity duration-1000 ease-in-out ${
+                showSpeedCode ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              <span className="text-[#29b960]">Speed</span>
+              <span className="text-[#C23E3E]">Code</span>
+            </span>
           </h1>
         </div>
       </div>
-      <div className="mb-[18rem] md:m-auto flex-1 flex justify-center items-center px-12 md:px-8 lg:px-20 font-sans">
+      <div 
+        className={`mb-[18rem] md:m-auto flex-1 flex justify-center items-center px-12 md:px-8 lg:px-20 font-sans transition-opacity duration-1000 ease-in-out ${
+          showButtons ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
         {isSignedIn ? (
           <div className="flex flex-col items-center gap-4">
             <p className="text-lg md:text-xl text-bold mb-2 text-center">
