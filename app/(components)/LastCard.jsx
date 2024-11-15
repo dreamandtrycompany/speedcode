@@ -17,9 +17,9 @@ const LastCard = () => {
               src="/banner.png"
               alt="Card Preview"
               className="rounded-t-2xl w-full"
-              layout="responsive"
               width={700}
               height={400}
+              priority
             />
           </figure>
           <div className="flex flex-col p-8 font-sans">
