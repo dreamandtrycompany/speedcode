@@ -57,7 +57,7 @@ const CodeDisplayPage = () => {
     if (charIndex < currentIndex) {
       return typedChar === targetChar ? 'text-green-500' : 'text-red-500'; // Correct or incorrect character
     } else if (charIndex === currentIndex) {
-      return 'text-orange-500'; // Current position
+      return 'text-blue-600'; // Current position
     } else {
       return 'text-gray-500'; // Remaining text
     }
