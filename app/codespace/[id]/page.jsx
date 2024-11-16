@@ -102,9 +102,13 @@ const CodeDisplayPage = () => {
     const currentWpm = Math.round(charRatio.correct / 5 / totalTime);
 
     // Calculate accuracy
-    const currentAccuracy = totalCharactersTyped > 0
-      ? Math.round((charRatio.correct / totalCharactersTyped) * 100)
-      : 100;
+    const currentAccuracy = Math.min(
+      100,
+      totalCharactersTyped > 0
+        ? Math.round((charRatio.correct / totalCharactersTyped) * 100)
+        : 100
+    );
+    
 
     // Update WPM history for consistency calculation
     wpmHistoryRef.current.push(currentRawWpm);

@@ -11,29 +11,29 @@ head.next.next.next.next.next = Node(HAHA)
 print(getNow(BUY PRO))`;
 
   return (
-    <section className="panel min-h-screen w-full flex items-center justify-center p-3 sm:p-6 md:p-8 lg:p-12 bg-gradient-to-b to-background">
-      <div className="block-clip-path-scale w-full max-w-[95vw] md:max-w-[85vw] lg:max-w-[80vw]">
+    <section className="panel min-h-screen w-full flex items-center justify-center p-2 sm:p-4 md:p-6 lg:p-8 bg-gradient-to-b to-background">
+      <div className="block-clip-path-scale w-full max-w-[90vw] md:max-w-[80vw] lg:max-w-[75vw]">
         <div className="relative">
           {/* Decorative elements */}
-          <div className="font-sans absolute -top-6 left-4 text-green-500 opacity-60 text-sm sm:text-base">
+          <div className="font-sans absolute -top-5 left-3 text-green-500 opacity-60 text-xs sm:text-sm">
             get_pro.py
           </div>
-          <div className="absolute -top-6 right-6 text-white/30 text-xs sm:text-sm">
-            <span className="mr-3">●</span>
-            <span className="mr-3">●</span>
+          <div className="absolute -top-5 right-4 text-white/30 text-xs">
+            <span className="mr-2">●</span>
+            <span className="mr-2">●</span>
             <span>●</span>
           </div>
 
           {/* Code Container */}
           <pre
             className="font-sans font-bold
-                       text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl
-                       p-6 sm:p-8 md:p-10 lg:p-12
-                       rounded-xl
+                       text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-3xl
+                       p-4 sm:p-6 md:p-8 lg:p-10
+                       rounded-lg
                        overflow-x-auto
                        bg-black backdrop-blur-md
                        transition-all duration-300
-                       shadow-2xl
+                       shadow-xl
                        border border-white/10
                        relative"
           >
@@ -41,10 +41,10 @@ print(getNow(BUY PRO))`;
               {codeString.split('\n').map((line, index) => (
                 <div
                   key={index}
-                  className="py-1 sm:py-2 flex items-start group hover:bg-white/5 transition-colors rounded"
+                  className="py-1 sm:py-1.5 flex items-start group hover:bg-white/5 transition-colors rounded"
                 >
                   {/* Line number */}
-                  <span className="select-none text-white/20 mr-4 text-right w-8 text-sm sm:text-base">
+                  <span className="select-none text-white/20 mr-3 text-right w-6 text-xs sm:text-sm">
                     {(index + 1).toString().padStart(2, '0')}
                   </span>
                   {/* Code line */}
@@ -57,7 +57,7 @@ print(getNow(BUY PRO))`;
           </pre>
 
           {/* Bottom decoration */}
-          <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-full"></div>
+          <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-24 h-0.5 bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-full"></div>
         </div>
       </div>
 
@@ -71,8 +71,8 @@ print(getNow(BUY PRO))`;
         }
 
         pre::-webkit-scrollbar {
-          width: 6px;
-          height: 6px;
+          width: 4px;
+          height: 4px;
         }
 
         pre::-webkit-scrollbar-track {
