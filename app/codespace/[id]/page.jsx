@@ -15,7 +15,7 @@ const CodeDisplayPage = () => {
   const [currentSnippetIndex, setCurrentSnippetIndex] = useState(0);
   const [inputs, setInputs] = useState(Array(1).fill(''));
   const [currentIndices, setCurrentIndices] = useState(Array(1).fill(0));
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(180);
   const [isActive, setIsActive] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
 
@@ -173,7 +173,7 @@ const CodeDisplayPage = () => {
   const resetGame = () => {
     setInputs(Array(1).fill(''));
     setCurrentIndices(Array(1).fill(0));
-    setTimeLeft(60);
+    setTimeLeft(180);
     setIsActive(false);
     setIsCompleted(false);
     setWpm(0);
