@@ -14,7 +14,7 @@ const FifthSection = () => {
                 Fun Of Typing
               </h2>
               <p className="text-gray-400 text-lg">
-                Don't fall behind! In the world of coding, speed is essential.
+                Don&apos;t fall behind! In the world of coding, speed is essential.
                 With SpeedCode, keep your fingers dancing across the keyboard to
                 ensure your code remains blazing fast!
               </p>
@@ -27,8 +27,8 @@ const FifthSection = () => {
             </h2>
             <p className="text-gray-400 text-lg">
               Coding is undeniably awesome, but typing speed is the secret
-              ingredient that sets you apart! With SpeedCode, you're not just
-              mastering syntax; you're transforming into a coding ninja,
+              ingredient that sets you apart! With SpeedCode, you&apos;re not just
+              mastering syntax; you&apos;re transforming into a coding ninja,
               effortlessly
             </p>
           </div>
