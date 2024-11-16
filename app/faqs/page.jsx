@@ -4,8 +4,6 @@ import { useState } from 'react';
 import Footer from '../(components)/Footer';
 import Navbar from '../(components)/Navbar';
 import { saveFaq } from '../../lib/supabase';
-// import { FaLocationArrow } from 'react-icons/fa';
-// import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const Page = () => {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -26,10 +24,10 @@ const Page = () => {
 
     try {
       await saveFaq(faq);
-      setSuccessMessage('Your faq has been saved successfully!');
+      setSuccessMessage('Your FAQ has been saved successfully!');
       setFaq('');
     } catch (error) {
-      setErrorMessage('There was an error saving your faq. Please try again.');
+      setErrorMessage('There was an error saving your FAQ. Please try again.');
       console.error(error);
     } finally {
       setIsSubmitting(false);
@@ -46,47 +44,42 @@ const Page = () => {
       id: 2,
       question: 'Is SpeedCode completely free?',
       answer:
-        'Yes SpeedCode does have a completely free version where you can practice coding and typing without paying any fee to anyone.',
+        'Yes, SpeedCode does have a completely free version where you can practice coding and typing without paying any fee.',
     },
     {
       id: 3,
       question: 'When is the battle feature rolling out?',
       answer:
-        'SpeedCode is working on this feature actively and will be letting users know through an official announcement.',
+        'SpeedCode is actively working on this feature and will announce it officially.',
     },
     {
       id: 4,
       question: 'What languages does SpeedCode offer?',
       answer:
-        'SpeedCode features Python, Java, C++ as the coding languages as of now, more languages are actively being worked upon.',
+        'SpeedCode features Python, Java, and C++ as coding languages, with more being developed.',
     },
     {
       id: 5,
-      question: 'Can we track our codes practice progress?',
+      question: 'Can we track our coding practice progress?',
       answer:
-        'Progress tracking is only a feature for the pro version, however you can elevate your coding practice with the free version as well !',
+        'Progress tracking is available in the pro version, but you can still practice effectively using the free version!',
     },
   ];
 
   return (
     <>
       <Navbar />
-      <section className="font-sans mb-8 md:mb-12 lg:mb-20 px-4 md:px-6 lg:px-8 pt-24">
+      <section className="font-sans mb-6 md:mb-10 lg:mb-14 px-4 md:px-6 lg:px-8 pt-20">
         {/* FAQ Section */}
-        <div className="w-full max-w-3xl mx-auto min-h-[50vh]">
-          <h1 className="font-sans font-bold text-center text-4xl md:text-5xl lg:text-7xl py-3 md:py-4 lg:py-5 mb-6 md:mb-8 lg:mb-10">
+        <div className="w-full max-w-2xl mx-auto min-h-[50vh]">
+          <h1 className="font-bold text-center text-3xl md:text-4xl lg:text-5xl py-2 md:py-3 lg:py-4 mb-4 md:mb-6 lg:mb-8">
             Frequently Asked Questions
           </h1>
 
           {faqItems.map((item) => (
-            <div
-              className={`border-b py-2 ${
-                item.id === faqItems.length ? 'border-b-0' : ''
-              }`}
-              key={item.id}
-            >
+            <div className="border-b py-2 last:border-b-0" key={item.id}>
               <button
-                className="w-full text-left text-lg md:text-xl py-3 md:py-5 pl-3 flex justify-between items-center hover:text-[#707070] transition-colors"
+                className="w-full text-left text-lg md:text-base lg:text-xl py-2 md:py-4 pl-3 flex justify-between items-center hover:text-gray-500 transition-colors"
                 onClick={() => handleClick(item.id)}
               >
                 {item.question}
@@ -95,15 +88,14 @@ const Page = () => {
                     activeIndex === item.id ? 'rotate-180' : ''
                   }`}
                 >
-                  {/* <MdOutlineKeyboardArrowDown className='text-white'/> */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    height="24px"
+                    height="20px"
                     viewBox="0 -960 960 960"
-                    width="24px"
+                    width="20px"
                     fill="#e8eaed"
                   >
-                    <path d="m480-340 180-180-57-56-123 123-123-123-57 56 180 180Zm0 260q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
+                    <path d="m480-340 180-180-57-56-123 123-123-123-57 56 180 180Z" />
                   </svg>
                 </span>
               </button>
@@ -112,7 +104,7 @@ const Page = () => {
                   activeIndex === item.id ? 'max-h-40' : 'max-h-0'
                 }`}
               >
-                <div className="font-mono text-base md:text-lg py-2 pl-3">
+                <div className="font-mono text-sm md:text-base py-2 pl-3">
                   <p>{item.answer}</p>
                 </div>
               </div>
@@ -121,10 +113,9 @@ const Page = () => {
         </div>
 
         {/* Question Form Section */}
-        <div className="w-full max-w-3xl mx-auto px-4 mt-8 md:mt-12 lg:mt-16">
-          <h1 className="font-sans font-bold text-center text-3xl md:text-5xl lg:text-7xl py-3 md:py-4 lg:py-5 mb-6 md:mb-8 lg:mb-10">
-            <span>Have any more questions</span>
-            <span className="block">for us?</span>
+        <div className="w-full max-w-2xl mx-auto px-4 mt-6 md:mt-8 lg:mt-10">
+          <h1 className="font-bold text-center text-2xl md:text-4xl lg:text-5xl py-2 md:py-3 lg:py-4 mb-4 md:mb-6 lg:mb-8">
+            Have any more questions for us?
           </h1>
 
           <form
@@ -134,48 +125,50 @@ const Page = () => {
             <input
               type="text"
               placeholder="Leave your question here"
-              className="rounded-3xl px-6 text-white py-3 md:py-4 bg-[#313131] flex-1 max-w-[350px]"
+              className="rounded-3xl px-4 py-2 md:py-3 bg-[#313131] flex-1 text-sm md:text-base text-white max-w-[320px]"
               value={faq}
               onChange={(e) => setFaq(e.target.value)}
               required
             />
             <button
               type="submit"
-              className="border-2 border-white rounded-3xl w-14 h-12 flex items-center justify-center hover:bg-[#29b960] hover:border-[#29b960] transition-all duration-300"
+              className="border-2 border-white rounded-3xl w-12 h-12 flex items-center justify-center hover:bg-[#29b960] hover:border-[#29b960] transition-all duration-300"
             >
               {isSubmitting ? (
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 140">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 290 140"
+                  height="20"
+                  width="20"
+                >
                   <path
                     fill="none"
                     stroke="#FFFFFF"
-                    stroke-width="15"
-                    stroke-linecap="round"
-                    stroke-dasharray="300 385"
-                    stroke-dashoffset="0"
+                    strokeWidth="10"
+                    strokeLinecap="round"
+                    strokeDasharray="300 385"
+                    strokeDashoffset="0"
                     d="M275 75c0 31-27 50-50 50-58 0-92-100-150-100-28 0-50 22-50 50s23 50 50 50c58 0 92-100 150-100 24 0 50 19 50 50Z"
                   >
                     <animate
                       attributeName="stroke-dashoffset"
-                      calcMode="spline"
-                      dur="2"
+                      dur="2s"
                       values="685;-685"
-                      keySplines="0 0 1 1"
                       repeatCount="indefinite"
-                    ></animate>
+                    />
                   </path>
                 </svg>
               ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  height="24px"
+                  height="20px"
                   viewBox="0 -960 960 960"
-                  width="24px"
+                  width="20px"
                   fill="#e8eaed"
                 >
-                  <path d="M480-440 160-640v400h360v80H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v280h-80v-200L480-440Zm0-80 320-200H160l320 200ZM760-40l-56-56 63-64H600v-80h167l-64-64 57-56 160 160L760-40ZM160-640v440-240 3-283 80Z" />
+                  <path d="M480-440 160-640v400h360v80H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v280h-80v-200L480-440Z" />
                 </svg>
               )}
-              {/* <FaLocationArrow className="text-lg" /> */}
             </button>
           </form>
         </div>
