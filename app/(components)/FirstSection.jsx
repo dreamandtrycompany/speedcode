@@ -6,13 +6,37 @@ const FirstSection = ({ isSignedIn, user }) => {
   const [showTitle, setShowTitle] = useState(false);
   const [showSpeedCode, setShowSpeedCode] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
+  // Reset animation states
+  const resetAnimations = () => {
+    setShowTitle(false);
+    setShowSpeedCode(false);
+    setShowButtons(false);
+  };
+
+  // Start animations
+  const startAnimations = () => {
+    setTimeout(() => setShowTitle(true), 400);
+    setTimeout(() => setShowSpeedCode(true), 900);
+    setTimeout(() => setShowButtons(true), 1200);
+  };
+
+  // Effect for handling the loads
   useEffect(() => {
-    // Staggered animations with setTimeout
-    setTimeout(() => setShowTitle(true), 400);  // title appears first
-    setTimeout(() => setShowSpeedCode(true), 900);  // speedcode text appears second
-    setTimeout(() => setShowButtons(true), 1200);  // buttons appear last
-  }, []);
+    if (isFirstLoad) {
+      // First load - keep everything hidden
+      resetAnimations();
+      
+      // Schedule second load
+      const secondLoad = setTimeout(() => {
+        setIsFirstLoad(false);
+        startAnimations();
+      }, 1000); // Wait 1 second before starting animations
+
+      return () => clearTimeout(secondLoad);
+    }
+  }, [isFirstLoad]);
 
   return (
     <section className="h-screen w-full flex flex-col md:flex-row">
@@ -45,21 +69,21 @@ const FirstSection = ({ isSignedIn, user }) => {
       >
         {isSignedIn ? (
           <div className="flex flex-col items-center gap-4">
-          <p className="text-lg md:text-xl text-bold mb-2 text-left">
-            Welcome back, {user?.firstName || 'User'}!
-          </p>
-          <Link
-            href="/main"
-            className="rounded-full font-bold text-white border-2 border-solid border-transparent 
-                     flex items-center justify-center bg-[#29b960] 
-                     text-sm sm:text-base h-8 sm:h-10
-                     w-48 sm:w-52
-                     hover:bg-[#134d29] hover:border-[#134d29] transition-all duration-300"
-            rel="noopener noreferrer"
-          >
-            Practice Space {'->'}
-          </Link>
-        </div>
+            <p className="text-lg md:text-xl text-bold mb-2 text-left">
+              Welcome back, {user?.firstName || 'User'}!
+            </p>
+            <Link
+              href="/main"
+              className="rounded-full font-bold text-white border-2 border-solid border-transparent 
+                       flex items-center justify-center bg-[#29b960] 
+                       text-sm sm:text-base h-8 sm:h-10
+                       w-48 sm:w-52
+                       hover:bg-[#134d29] hover:border-[#134d29] transition-all duration-300"
+              rel="noopener noreferrer"
+            >
+              Practice Area
+            </Link>
+          </div>
         ) : (
           <div className="flex flex-row gap-3 md:gap-4">
             <Link
