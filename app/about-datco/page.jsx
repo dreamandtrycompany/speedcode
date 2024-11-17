@@ -6,16 +6,16 @@ const page = () => {
   return (
     <div className="min-h-screen bg-background font-sans text-white">
       <Navbar />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-        <div className="bg-background shadow-sm rounded-lg p-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+        <div className="bg-background shadow-sm rounded-lg p-6 sm:p-8">
           {/* Header Section */}
-          <h1 className="text-4xl sm:text-5xl font-bold text-center text-white mb-12">
-            About DATCO (Dream and Try Company/Community)
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center text-white mb-8 sm:mb-12">
+            About DATCO (Dream and Try Company)
           </h1>
 
           {/* Introduction */}
-          <section className="mb-16">
-            <p className="text-lg text-white leading-relaxed">
+          <section className="mb-12">
+            <p className="text-base sm:text-lg text-white leading-relaxed">
               DATCO, short for Dream and Try Company/Community, is a vibrant
               tech group founded by four friends in college. United by a shared
               passion for innovation and problem-solving, this team isn&apos;t just
@@ -28,11 +28,11 @@ const page = () => {
           </section>
 
           {/* SpeedCode Project Section */}
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold text-white mb-6">
+          <section className="mb-12">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-4 sm:mb-6">
               SpeedCode: Making Coding Social and Interactive
             </h2>
-            <p className="text-lg text-white leading-relaxed">
+            <p className="text-base sm:text-lg text-white leading-relaxed">
               SpeedCode, one of DATCO&apos;s flagship projects, is a platform
               designed to make coding more interactive, competitive, and social.
               It brings developers together in real-time through features like
@@ -46,11 +46,11 @@ const page = () => {
           </section>
 
           {/* AI Exploration Section */}
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold text-white mb-6">
+          <section className="mb-12">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-4 sm:mb-6">
               Exploring Variety of Fields
             </h2>
-            <p className="text-lg text-white leading-relaxed">
+            <p className="text-base sm:text-lg text-white leading-relaxed">
               DATCO&apos;s vision extends beyond SpeedCode. The team is actively
               exploring artificial intelligence, machine learning, diving into
               innovative projects that integrate AI in meaningful and impactful
@@ -61,11 +61,11 @@ const page = () => {
           </section>
 
           {/* Collaboration and Idea Sharing Section */}
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold text-white mb-6">
+          <section className="mb-12">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-4 sm:mb-6">
               Collaboration and Idea Sharing
             </h2>
-            <p className="text-lg text-white leading-relaxed">
+            <p className="text-base sm:text-lg text-white leading-relaxed">
               Collaboration and idea-sharing form the foundation of DATCO&apos;s
               philosophy. The group welcomes people to pitch their project
               ideas, whether they&apos;re academic initiatives to enhance a portfolio
@@ -79,11 +79,11 @@ const page = () => {
           </section>
 
           {/* Community-Focused Section */}
-          <section className="mb-16 last:mb-0">
-            <h2 className="text-3xl font-bold text-white mb-6">
+          <section className="mb-12 last:mb-0">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-4 sm:mb-6">
               Building a Community
             </h2>
-            <p className="text-lg text-white leading-relaxed">
+            <p className="text-base sm:text-lg text-white leading-relaxed">
               At its core, DATCO is about community. The team values not just
               the final product, but the entire journey—the collaborative
               process, the personal growth, and the shared excitement of

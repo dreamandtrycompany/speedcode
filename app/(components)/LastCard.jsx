@@ -30,10 +30,15 @@ const LastCard = () => {
               A text editor that converts plain text to plag-free text in
               seconds.
             </div>
-            <div className="flex justify-end pt-5">
-              <button className="bg-blue-600 text-white w-full font-bold text-base p-2.5 rounded-lg hover:bg-blue-800 active:scale-95 transition-transform">
-                Try it out!
-              </button>
+            <div className="flex justify-end pt-5">    
+            <a
+              href="https://puretextbydatco.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-blue-600 text-white w-full font-bold text-base p-2.5 rounded-lg hover:bg-blue-800 active:scale-95 transition-transform inline-block text-center"
+            >
+              Try it out!
+            </a>
             </div>
           </div>
         </div>

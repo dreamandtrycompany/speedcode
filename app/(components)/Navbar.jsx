@@ -10,6 +10,7 @@ const DotIcon = () => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 512 512"
       fill="currentColor"
+      className="w-3 h-3" // Added size control
     >
       <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" />
     </svg>
@@ -29,11 +30,11 @@ function Navbar() {
   const { isSignedIn, user } = useUser();
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-background backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto flex justify-evenly md:justify-between items-center py-5 px-4">
+    <header className="relative w-full bg-background border-gray-200">
+      <nav className="font-sans max-w-7xl mx-auto flex justify-between items-center py-3 px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <Link href={'/'} className="hover:opacity-80 transition-opacity">
-          <span className="text-2xl font-sans">
+        <Link href={'/'} className="hover:opacity-80 transition-opacity shrink-0">
+          <span className="text-lg sm:text-xl lg:text-2xl font-sans">
             <span className="text-[#29b960] font-extrabold">Speed</span>
             <span className="text-[#C23E3E] font-extrabold">Code</span>
           </span>
@@ -41,7 +42,7 @@ function Navbar() {
 
         {/* Navigation Links */}
         {isSignedIn && user ? (
-          <ul className="flex items-center gap-4 sm:gap-12 font-bold font-sans">
+          <ul className="flex items-center gap-3 sm:gap-6 lg:gap-8 font-medium text-sm sm:text-base">
             <li>
               <Link
                 href={'/faqs'}
@@ -58,7 +59,7 @@ function Navbar() {
                 About
               </Link>
             </li>
-            <li>
+            <li className="ml-2">
               <UserButton>
                 <UserButton.UserProfilePage
                   label="Custom Page"
@@ -78,7 +79,7 @@ function Navbar() {
             </li>
           </ul>
         ) : (
-          <ul className="flex items-center gap-4 sm:gap-12 font-bold font-sans">
+          <ul className="flex items-center gap-3 sm:gap-6 lg:gap-8 font-medium text-sm sm:text-base">
             <li>
               <Link
                 href={'/faqs'}
@@ -97,15 +98,15 @@ function Navbar() {
             </li>
             <li>
               <Link href={'/getpro'}>
-                <button className="border-2 border-white rounded-3xl px-5 py-2 hover:bg-[#313131] hover:border-[#313131] transition-all duration-300">
+                <button className="border-2 border-gray-300 rounded-full px-3 py-1 sm:px-4 sm:py-1.5 text-sm hover:bg-[#313131] hover:border-[#313131] hover:text-white transition-all duration-300">
                   Get Pro
                 </button>
               </Link>
             </li>
           </ul>
         )}
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 }
 
