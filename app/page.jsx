@@ -19,17 +19,59 @@ import Footer from './(components)/Footer';
 
 export default function Home() {
   const { isSignedIn, user } = useUser();
+
   return (
-    <>
-      <Navbar />
-      <FirstSection isSignedIn={isSignedIn} user={user} />
-      <FifthSection />
-      <SecondSection />
-      <ThirdSection />
-      {/* <Testimonials /> */}
-      <LastCard />
-      <FourthSection />
-      <Footer />
-    </>
+    <div className="min-h-screen flex flex-col">
+      {/* Navbar - Fixed at top */}
+      <div className="sticky top-0 z-50">
+        <Navbar />
+      </div>
+
+      {/* Main Content Container */}
+      <main className="flex-grow">
+        {/* Each section is wrapped in a container for consistent padding and max-width */}
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          {/* Hero Section */}
+          <section className="py-8 md:py-12">
+            <FirstSection isSignedIn={isSignedIn} user={user} />
+          </section>
+
+          {/* Fifth Section */}
+          <section className="py-8 md:py-12">
+            <FifthSection />
+          </section>
+
+          {/* Second Section */}
+          <section className="py-8 md:py-12">
+            <SecondSection />
+          </section>
+
+          {/* Third Section */}
+          <section className="py-8 md:py-12">
+            <ThirdSection />
+          </section>
+
+          {/* Last Card Section */}
+          <section className="py-8 md:py-12">
+            <LastCard />
+          </section>
+
+          {/* Fourth Section */}
+          <section className="py-8 md:py-12">
+            <FourthSection />
+          </section>
+
+          {/* Testimonials - Commented out but keeping the structure */}
+          {/* <section className="py-8 md:py-12">
+            <Testimonials />
+          </section> */}
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="mt-auto">
+        <Footer />
+      </footer>
+    </div>
   );
 }
